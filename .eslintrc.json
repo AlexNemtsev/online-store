@@ -20,5 +20,5 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "error"
   },
-  "ignorePatterns": ["webpack.config.js"]
+  "ignorePatterns": ["webpack.*config.js"]
 }
