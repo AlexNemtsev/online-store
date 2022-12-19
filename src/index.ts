@@ -1,4 +1,10 @@
-console.log('Hello World!');
+import {route, handleLocation} from "./router";
 
-let a = 1;
-a++;
+const links: HTMLCollection | undefined = document.querySelector('.sidebar')?.children;
+
+for (let i = 0; links && i < links?.length; i += 1) {
+  links[i].addEventListener('click', route);
+}
+
+document.addEventListener('popstate', handleLocation);
+handleLocation();
