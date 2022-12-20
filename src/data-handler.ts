@@ -20,7 +20,7 @@ type responseData = {
 };
 
 class DataLoader {
-  errorHandler(res: Response): Response | never {
+  private static errorHandler(res: Response): Response | never {
     if (res.ok) return res;
     else {
       if (res.status === 401 || res.status === 404) {
@@ -32,11 +32,13 @@ class DataLoader {
     }
   }
 
-  fetchProductsData(): Promise<void | responseData> {
+  static fetchProductsData(): Promise<void | product[]> {
     return fetch('https://dummyjson.com/products?limit=100')
-      .then((res) => this.errorHandler(res))
+      .then((res) => DataLoader.errorHandler(res))
       .then((res) => res.json())
-      .then((data) => data as responseData)
+      .then((data) => (data as responseData).products)
       .catch((err) => console.error(err));
   }
 }
+
+export default DataLoader;
