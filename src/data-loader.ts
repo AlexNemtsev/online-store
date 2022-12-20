@@ -1,4 +1,4 @@
-import product from "./interfaces/product";
+import product from './interfaces/product';
 
 type responseData = {
   products: product[];
@@ -20,12 +20,11 @@ class DataLoader {
     }
   }
 
-  static fetchProductsData(): Promise<void | product[]> {
+  static fetchProductsData(): Promise<product[]> {
     return fetch('https://dummyjson.com/products?limit=100')
       .then((res) => DataLoader.errorHandler(res))
       .then((res) => res.json())
-      .then((data) => (data as responseData).products)
-      .catch((err) => console.error(err));
+      .then((data) => (data as responseData).products);
   }
 }
 
