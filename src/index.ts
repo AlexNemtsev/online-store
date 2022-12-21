@@ -1,3 +1,5 @@
+import './style.css';
+
 import { route, handleLocation } from './router';
 
 const links: HTMLCollection | undefined = document.querySelector('.sidebar')
