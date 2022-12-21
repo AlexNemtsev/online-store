@@ -1,0 +1,16 @@
+.button {
+  padding: 5px 15px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: $white;
+  background-color: $green;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $green-hover;
+  }
+}

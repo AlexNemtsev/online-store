@@ -4,7 +4,7 @@
   justify-content: space-between;
   min-height: 100vh;
   margin: 0;
-  font-family: "Tahoma", "Arial", sans-serif;
+  font-family: $mainfont;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -19,8 +19,8 @@
 .footer {
   padding-top: 15px;
   padding-bottom: 15px;
-  color: white;
-  background-color: black;
+  color: $white;
+  background-color: $black;
 }
 
 .header__inner,
@@ -33,7 +33,7 @@
 .header a,
 .footer a {
   text-decoration: none;
-  color: white;
+  color: $white;
   transition: all 0.3s ease;
 }
 

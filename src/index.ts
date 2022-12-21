@@ -1,4 +1,4 @@
-import './style.css';
+import './style.scss';
 
 import { route, handleLocation } from './router';
 
