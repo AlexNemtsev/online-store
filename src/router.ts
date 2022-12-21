@@ -10,7 +10,7 @@ const routes: { [key: string]: string } = {
   '/lorem': 'LOREM',
 };
 
-const handleLocation = () => {
+const handleLocation = (): void => {
   const path: string = window.location.pathname;
   const content: string = routes[path] || path['404'];
   updatePage(content);
@@ -26,7 +26,7 @@ const route = (e: Event): void => {
     href = event.target.href;
   }
 
-  window.history.pushState({}, '', href);
+  window.history.pushState({ test: 66 }, '', href);
   handleLocation();
 };
 
