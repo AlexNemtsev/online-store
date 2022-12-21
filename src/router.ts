@@ -1,5 +1,5 @@
 const updatePage = (content: string): void => {
-  const header: HTMLElement | null = document.querySelector('.header');
+  const header: HTMLElement | null = document.querySelector('h1');
   if (header) header.textContent = content;
 };
 
