@@ -47,5 +47,42 @@
       </div>
     </div>
   </template>
+
+  <template id="product-page-template">
+    <div class="product-page container">
+      <ul class="breadcrumbs">
+        <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__link">Store</a></li>
+        <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__link">Section</a></li>
+        <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__link">Brand</a></li>
+        <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__link">Model</a></li>
+      </ul>
+      <section class="product">
+        <div class="product__images">
+          <div class="product__images-list">
+            <img class="product__image" src="https://via.placeholder.com/160" alt="" width="160" height="160">
+            <img class="product__image" src="https://via.placeholder.com/160" alt="" width="160" height="160">
+            <img class="product__image" src="https://via.placeholder.com/160" alt="" width="160" height="160">
+          </div>
+          <img class="product__image product__image--main" src="https://via.placeholder.com/500" alt="" width="500" height="500">
+        </div>
+        <div class="product__info">
+          <h1 class="product__title">Title</h1>
+          <ul class="product__properties">
+            <li class="product__property"><strong>Description:</strong> <span></span></li>
+            <li class="product__property"><strong>Category:</strong> <span></span></li>
+            <li class="product__property"><strong>Brand:</strong> <span></span></li>
+            <li class="product__property"><strong>Rating:</strong> <span></span></li>
+            <li class="product__property"><strong>Stock:</strong> <span></span></li>
+            <li class="product__property"><strong>Discount Percentage:</strong> <span></span></li>
+          </ul>
+          <p class="product__price">$0</p>
+          <div class="product__buttons">
+            <button class="button product__button">Add to Cart</button>
+            <button class="button product__button">Buy now</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </template>
 </body>
 </html>
