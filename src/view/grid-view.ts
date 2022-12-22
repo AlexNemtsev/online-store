@@ -40,6 +40,7 @@ const fillCard = (
 
 const gridView = (products: product[]): void => {
   const parentElement = document.querySelector('.main');
+  parentElement?.children[0].remove();
   const container = document.createElement('div');
   container.className = 'cards';
   const template = document.getElementById(
