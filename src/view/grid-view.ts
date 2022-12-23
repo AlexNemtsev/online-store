@@ -1,4 +1,5 @@
 import product from '../interfaces/product';
+import { setRoute } from '../router';
 
 const fillCard = (
   item: product,
@@ -34,13 +35,18 @@ const fillCard = (
 
   const detailsLink = card.querySelector('a') as HTMLAnchorElement;
   detailsLink.href = `/product-details/${item.id}`;
+  detailsLink.addEventListener('click', setRoute);
 
   return card;
 };
 
 const gridView = (products: product[]): void => {
   const parentElement = document.querySelector('.main');
-  parentElement?.children[0].remove();
+
+  if (parentElement?.children[0]) {
+    parentElement?.children[0].remove();
+  }
+
   const container = document.createElement('div');
   container.className = 'cards';
   const template = document.getElementById(

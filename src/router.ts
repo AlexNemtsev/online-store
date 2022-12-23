@@ -16,18 +16,18 @@ const handleLocation = (): void => {
   updatePage(content);
 };
 
-const route = (e: Event): void => {
+const setRoute = (e: Event): void => {
   const event: Event = e || window.event;
   event.preventDefault();
 
   let href: string | undefined;
 
-  if (event.target instanceof HTMLAnchorElement) {
-    href = event.target.href;
+  if (event.currentTarget instanceof HTMLAnchorElement) {
+    href = event.currentTarget.href;
   }
 
-  window.history.pushState({ test: 66 }, '', href);
-  handleLocation();
+  window.history.pushState({}, '', href);
+  // handleLocation();
 };
 
-export { route, handleLocation };
+export { setRoute, handleLocation };

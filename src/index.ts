@@ -1,20 +1,23 @@
 import './style.scss';
 
-import { route, handleLocation } from './router';
-
-// const links: HTMLCollection | undefined = document.querySelector('.sidebar')
-//   ?.children;
-
-// for (let i = 0; links && i < links?.length; i += 1) {
-//   links[i].addEventListener('click', route);
-// }
+import { setRoute, handleLocation } from './router';
 
 import DataLoader from './data-loader';
 import gridView from './view/grid-view';
+import product from './interfaces/product';
 
-DataLoader.fetchProductsData()
-  .then((products) => gridView(products))
-  .catch((error) => console.log(error));
+let allTheProducts: product[];
+
+const logoLink = document.getElementById('logo-link');
+logoLink?.addEventListener('click', setRoute);
+
+const cartLink = document.getElementById('cart-link');
+cartLink?.addEventListener('click', setRoute);
+
+DataLoader.fetchProductsData().then((products) => {
+  allTheProducts = products;
+  gridView(products);
+});
 
 window.addEventListener('popstate', handleLocation);
 handleLocation();
