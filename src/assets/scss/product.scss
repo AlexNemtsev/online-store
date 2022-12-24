@@ -19,7 +19,14 @@
 }
 
 .product__image {
+  width: 92px;
+  height: 92px;
   object-fit: cover;
+
+  &--main {
+    width: 500px;
+    height: 500px;
+  }
 }
 
 .product__title {
