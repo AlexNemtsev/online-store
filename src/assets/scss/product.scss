@@ -22,10 +22,15 @@
   width: 92px;
   height: 92px;
   object-fit: cover;
+  box-shadow: 0 0 15px 3px rgb(0 0 0 / 35%);
 
   &--main {
     width: 500px;
     height: 500px;
+  }
+
+  &:hover:not(.product__image--main) {
+    cursor: pointer;
   }
 }
 
