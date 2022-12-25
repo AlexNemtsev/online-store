@@ -1,0 +1,26 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0 0 30px;
+  list-style: none;
+}
+
+.breadcrumbs__item {
+  text-transform: capitalize;
+  
+  &:not(:first-child) {
+    &::before {
+      content: ">";
+      margin: 0 20px;
+    }
+  }
+}
+
+.breadcrumbs__link {
+  color: $black;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
