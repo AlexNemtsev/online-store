@@ -1,11 +1,11 @@
 import product from './interfaces/product';
 
-type ResponseData = {
+interface ResponseData {
   products: product[];
   total: number;
   skip: number;
   limit: number;
-};
+}
 
 class DataLoader {
   private static errorHandler(res: Response): Response | never {
