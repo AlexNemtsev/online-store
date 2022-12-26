@@ -41,7 +41,7 @@ const fillCard = (
 };
 
 const gridView = (products: product[]): void => {
-  const parentElement = document.querySelector('.main');
+  const parentElement: Element | null = document.querySelector('.main');
 
   if (parentElement?.children[0]) {
     parentElement?.children[0].remove();
