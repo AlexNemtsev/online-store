@@ -3,7 +3,7 @@ import './style.scss';
 import { setRoute, handleLocation } from './router';
 
 import DataLoader from './data-loader';
-import gridView from './view/grid-view';
+import GridView from './view/grid-view';
 import product from './interfaces/product';
 
 let allTheProducts: product[];
@@ -16,7 +16,7 @@ cartLink?.addEventListener('click', setRoute);
 
 DataLoader.fetchProductsData().then((products) => {
   allTheProducts = products;
-  gridView(products);
+  GridView.draw(products);
 });
 
 window.addEventListener('popstate', handleLocation);
