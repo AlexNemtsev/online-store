@@ -1,5 +1,5 @@
 import product from '../interfaces/product';
-import { setRoute } from '../router';
+import Router from '../router';
 
 class GridView {
   private static _fillCard(
@@ -36,7 +36,7 @@ class GridView {
 
     const detailsLink = card.querySelector('a') as HTMLAnchorElement;
     detailsLink.href = `/product-details/${item.id}`;
-    detailsLink.addEventListener('click', setRoute);
+    detailsLink.addEventListener('click', Router.setRoute);
 
     return card;
   }

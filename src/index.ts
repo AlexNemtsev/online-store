@@ -1,6 +1,6 @@
 import './style.scss';
 
-import { setRoute, handleLocation } from './router';
+import Router from './router';
 
 import DataLoader from './data-loader';
 import GridView from './view/grid-view';
@@ -9,15 +9,15 @@ import product from './interfaces/product';
 let allTheProducts: product[];
 
 const logoLink = document.getElementById('logo-link');
-logoLink?.addEventListener('click', setRoute);
+logoLink?.addEventListener('click', Router.setRoute);
 
 const cartLink = document.getElementById('cart-link');
-cartLink?.addEventListener('click', setRoute);
+cartLink?.addEventListener('click', Router.setRoute);
 
 DataLoader.fetchProductsData().then((products) => {
   allTheProducts = products;
   GridView.draw(products);
 });
 
-window.addEventListener('popstate', handleLocation);
-handleLocation();
+window.addEventListener('popstate', Router.handleLocation);
+Router.handleLocation();

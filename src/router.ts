@@ -1,33 +1,35 @@
-const updatePage = (content: string): void => {
-  const header: HTMLElement | null = document.querySelector('h1');
-  if (header) header.textContent = content;
-};
+class Router {
+  private static routes: { [key: string]: string } = {
+    // '404': '404 ERROR',
+    // '/': 'HOME',
+    // '/about': 'ABOUT',
+    // '/lorem': 'LOREM',
+  };
 
-const routes: { [key: string]: string } = {
-  '404': '404 ERROR',
-  '/': 'HOME',
-  '/about': 'ABOUT',
-  '/lorem': 'LOREM',
-};
+  static setRoute(e: Event): void {
+    const event: Event = e || window.event;
+    event.preventDefault();
 
-const handleLocation = (): void => {
-  const path: string = window.location.pathname;
-  const content: string = routes[path] || path['404'];
-  updatePage(content);
-};
+    let href: string | undefined;
 
-const setRoute = (e: Event): void => {
-  const event: Event = e || window.event;
-  event.preventDefault();
+    if (event.currentTarget instanceof HTMLAnchorElement) {
+      href = event.currentTarget.href;
+    }
 
-  let href: string | undefined;
-
-  if (event.currentTarget instanceof HTMLAnchorElement) {
-    href = event.currentTarget.href;
+    window.history.pushState({}, '', href);
+    // Router.handleLocation();
   }
 
-  window.history.pushState({}, '', href);
-  // handleLocation();
-};
+  static handleLocation(): void {
+    const path: string = window.location.pathname;
+    const content: string = Router.routes[path] || path['404'];
+    Router.updatePage(content);
+  }
 
-export { setRoute, handleLocation };
+  private static updatePage(content: string): void {
+    const header: HTMLElement | null = document.querySelector('h1');
+    if (header) header.textContent = content;
+  }
+}
+
+export default Router;
