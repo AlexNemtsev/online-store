@@ -2,7 +2,7 @@ import product from '../interfaces/product';
 import Router from '../router';
 
 class GridView {
-  private static _fillCard(
+  private static fillCard(
     item: product,
     template: HTMLTemplateElement,
   ): HTMLDivElement {
@@ -56,7 +56,7 @@ class GridView {
 
     if (template) {
       products.forEach((item) =>
-        container.append(GridView._fillCard(item, template)),
+        container.append(GridView.fillCard(item, template)),
       );
     }
 
