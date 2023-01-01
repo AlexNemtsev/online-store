@@ -23,9 +23,11 @@
 }
 
 .filters__list {
+  height: 140px;
   margin: 0;
   padding: 10px;
   list-style: none;
+  overflow-y: auto;
 }
 
 .filters__item:not(:last-child) {

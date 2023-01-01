@@ -42,25 +42,17 @@ class GridView {
   }
 
   static draw(products: product[]): void {
-    const parentElement: Element | null = document.querySelector('.main');
-
-    if (parentElement?.children[0]) {
-      parentElement?.children[0].remove();
-    }
-
-    const container = document.createElement('div');
-    container.className = 'cards';
+    const cards = document.querySelector('.cards') as HTMLElement;
+    cards.innerHTML = '';
     const template = document.getElementById(
       'card-template',
     ) as HTMLTemplateElement;
 
     if (template) {
       products.forEach((item) =>
-        container.append(GridView._fillCard(item, template)),
+        cards.append(GridView._fillCard(item, template)),
       );
     }
-
-    parentElement?.append(container);
   }
 }
 
