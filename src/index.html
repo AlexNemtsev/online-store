@@ -89,6 +89,59 @@
       </section>
     </div>
   </template>
+
+  <template id="filters-template">
+    <section class="filters">
+      <div class="filters__buttons">
+        <button class="button">Reset Filters</button>
+        <button class="button">Copy Link</button>
+      </div>
+      <div class="filters__group">
+        <h3 class="filters__title">Category</h3>
+        <ul class="filters__list"></ul>
+      </div>
+      <div class="filters__group">
+        <h3 class="filters__title">Brand</h3>
+        <ul class="filters__list"></ul>
+      </div>
+      <div class="filters__group">
+        <h3 class="filters__title">Price</h3>
+        <div class="filters__range range">
+          <div class="range__numbers">
+            <span class="range__from"></span>
+            <span class="range__arrow">⟷</span>
+            <span class="range__to"></span>
+          </div>
+          <div class="range__inputs">
+            <input class="range__input" type="range" min="" max="">
+            <input class="range__input" type="range" min="" max="">
+          </div>
+        </div>
+      </div>
+      <div class="filters__group">
+        <h3 class="filters__title">Stock</h3>
+        <div class="filters__range range">
+          <div class="range__numbers">
+            <span class="range__from"></span>
+            <span class="range__arrow">⟷</span>
+            <span class="range__to"></span>
+          </div>
+          <div class="range__inputs">
+            <input class="range__input" type="range" min="" max="">
+            <input class="range__input" type="range" min="" max="">
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template id="checkbox-template">
+    <li class="filters__item checkbox">
+      <input class="checkbox__input visually-hidden" type="checkbox" id="">
+      <label class="checkbox__label" for=""></label>
+      <span class="checkbox__amount"></span>
+    </li>
+  </template>
 </body>
 
 </html>
