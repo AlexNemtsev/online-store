@@ -50,7 +50,7 @@ class GridView {
 
     if (template) {
       products.forEach((item) =>
-        cards.append(GridView._fillCard(item, template)),
+        cards.append(GridView.fillCard(item, template)),
       );
     }
   }
