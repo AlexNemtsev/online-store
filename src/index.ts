@@ -1,9 +1,23 @@
-import route from './router';
+import './style.scss';
 
-const nav = document.querySelector('.sidebar');
+import Router from './router';
 
-if (nav?.children) {
-  for (const anchor of nav.children) {
-    anchor.addEventListener('click', route);
-  }
-}
+import DataLoader from './data-loader';
+import GridView from './view/grid-view';
+import product from './interfaces/product';
+
+let allTheProducts: product[];
+
+const logoLink = document.getElementById('logo-link');
+logoLink?.addEventListener('click', Router.setRoute);
+
+const cartLink = document.getElementById('cart-link');
+cartLink?.addEventListener('click', Router.setRoute);
+
+DataLoader.fetchProductsData().then((products) => {
+  allTheProducts = products;
+  GridView.draw(products);
+});
+
+window.addEventListener('popstate', Router.handleLocation);
+Router.handleLocation();

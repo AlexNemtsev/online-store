@@ -4,7 +4,8 @@
     "es2021": true
   },
   "extends": [
-    "eslint:recommended",
+    "airbnb-base",
+    "airbnb-typescript/base",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier"
@@ -12,7 +13,8 @@
   "overrides": [],
   "parserOptions": {
     "ecmaVersion": "latest",
-    "project": ["tsconfig.json"],
+    "project": "tsconfig.json",
+    "tsconfigRootDir": ".",
     "sourceType": "module"
   },
   "parser": "@typescript-eslint/parser",
@@ -20,5 +22,5 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "error"
   },
-  "ignorePatterns": ["webpack.*config.js"]
+  "ignorePatterns": ["webpack.*"]
 }

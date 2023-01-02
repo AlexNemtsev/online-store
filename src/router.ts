@@ -1,19 +1,35 @@
-const route = (event: Event) => {
-  event = event || window.event;
-  event.preventDefault();
-  const { target } = event;
-  let href;
+class Router {
+  private static routes: { [key: string]: string } = {
+    // '404': '404 ERROR',
+    // '/': 'HOME',
+    // '/about': 'ABOUT',
+    // '/lorem': 'LOREM',
+  };
 
-  if (target instanceof HTMLAnchorElement) {
-    href = target.href;
+  static setRoute(e: Event): void {
+    const event: Event = e || window.event;
+    event.preventDefault();
+
+    let href: string | undefined;
+
+    if (event.currentTarget instanceof HTMLAnchorElement) {
+      href = event.currentTarget.href;
+    }
+
+    window.history.pushState({}, '', href);
+    // Router.handleLocation();
   }
-  window.history.pushState({}, '', href);
-};
 
-// const routes = {};
+  static handleLocation(): void {
+    const path: string = window.location.pathname;
+    const content: string = Router.routes[path] || path['404'];
+    Router.updatePage(content);
+  }
 
-// const handleLocation = async () => void {
-//   const path = window.location.pathname;
-// };
+  private static updatePage(content: string): void {
+    const header: HTMLElement | null = document.querySelector('h1');
+    if (header) header.textContent = content;
+  }
+}
 
-export default route;
+export default Router;

@@ -1,19 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="root">
-      <nav id="main-nav" class="sidebar">
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/lorem">Lorem</a>
-      </nav>
-      <div id="main-page"></div>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Store</title>
+</head>
+
+<body class="body">
+  <header class="header">
+    <div class="header__inner container">
+      <a href="/" id="logo-link">
+        <img src="./assets/img/store_logo.svg" width="200" height="50" alt="Logo Store"></a>
+      <p class="header__sum">
+        Cart total: <span class="header__sum-number">0</span>
+      </p>
+      <a href="/cart" id="cart-link"><img src="./assets/img/cart_logo.svg" width="50" height="50" alt="Cart"></a>
     </div>
-  </body>
+  </header>
+
+  <main class="main"></main>
+
+  <footer class="footer">
+    <div class="footer__inner container">
+      <p>
+        &copy;
+        <a href="https://github.com/">AlexNemtsev</a>,
+        <a href="https://github.com/ansee66">ansee66</a>
+      </p>
+      <p>2022</p>
+      <a href="https://rs.school/js/"><img src="./assets/img/rs_school_js.svg" width="100" height="38"
+          alt="Logo RS School"></a>
+    </div>
+  </footer>
+
+  <template id="card-template">
+    <div class="card">
+      <h3 class="card__title">Title</h3>
+      <img class="card__image" src="https://via.placeholder.com/300" alt="" width="250" height="250">
+      <ul class="card__list">
+        <li class="card__item"><strong>Category:</strong> <span></span></li>
+        <li class="card__item"><strong>Brand:</strong> <span></span></li>
+        <li class="card__item"><strong>Price:</strong> <span></span></li>
+        <li class="card__item"><strong>Discount:</strong> <span></span></li>
+        <li class="card__item"><strong>Rating:</strong> <span></span></li>
+        <li class="card__item"><strong>Stock:</strong> <span></span></li>
+      </ul>
+      <div class="card__buttons">
+        <button class="button">Add to Cart</button>
+        <a class="button" href="">Details</a>
+      </div>
+    </div>
+  </template>
+
+  <template id="product-page-template">
+    <div class="product-page container">
+      <ul class="breadcrumbs">
+        <li class="breadcrumbs__item"><a href="/" class="breadcrumbs__link">Store</a></li>
+        <li class="breadcrumbs__item">Section</li>
+        <li class="breadcrumbs__item">Brand</li>
+        <li class="breadcrumbs__item">Model</li>
+      </ul>
+      <section class="product">
+        <div class="product__images">
+          <div class="product__images-list">
+            <img class="product__image" src="https://via.placeholder.com/92" alt="" width="92" height="92">
+          </div>
+          <img class="product__image product__image--main" src="https://via.placeholder.com/500" alt="" width="500"
+            height="500">
+        </div>
+        <div class="product__info">
+          <h1 class="product__title">Title</h1>
+          <ul class="product__properties">
+            <li class="product__property"><strong>Description:</strong> <span></span></li>
+            <li class="product__property"><strong>Category:</strong> <span></span></li>
+            <li class="product__property"><strong>Brand:</strong> <span></span></li>
+            <li class="product__property"><strong>Rating:</strong> <span></span></li>
+            <li class="product__property"><strong>Stock:</strong> <span></span></li>
+            <li class="product__property"><strong>Discount Percentage:</strong> <span></span></li>
+          </ul>
+          <p class="product__price">$<span>0</span></p>
+          <div class="product__buttons">
+            <button class="button product__button">Add to Cart</button>
+            <button class="button product__button">Buy now</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </template>
+</body>
+
 </html>
