@@ -1,30 +1,35 @@
 import product from './interfaces/product';
 import GridView from './view/grid-view';
 
-type filterKey = 'category' | 'brand';
+type filterKey = 'category' | 'brand' | 'price' | 'stock';
 
 class FiltersHandler {
   products: product[];
-  checkboxFilters: {[key: string]: Array<string | number>};
+  appliedFilters: {[key: string]: Array<string | number>};
+  checkboxFilters: string[];
 
   constructor(products: product[]) {
     this.products = products;
-    this.checkboxFilters = {};
+    this.appliedFilters = {};
+    this.checkboxFilters = ['category', 'brand'];
   }
 
-  handleCheckboxs(filters: {[key: string]: Array<string | number>}): product[] {
+  private handleFilters(filters: {[key: string]: Array<string | number>}): product[] {
     let filteredProducts: product[] = this.products;
-    let newFilteredProducts: product[] = [];
-    const filterArray = Object.entries(filters);
+    const filterArray: Array<[string, Array<string | number>]> = Object.entries(filters);
     filterArray.forEach(filter => {
-      if (filter[1].length > 0) {
-        newFilteredProducts = [];
-        const parameter = filter[0] as filterKey;
-        for (let product of filteredProducts) {
+      let newFilteredProducts: product[] = [];
+      const parameter = filter[0] as filterKey;
+      for (let product of filteredProducts) {
+        if (this.checkboxFilters.includes(filter[0])) {
           if (filter[1].includes(product[parameter])) newFilteredProducts.push(product);
+        } else {
+          if (product[parameter] >= filter[1][0] && product[parameter] <= filter[1][1]) {
+            newFilteredProducts.push(product);
+          }
         }
-        filteredProducts = newFilteredProducts;
       }
+      filteredProducts = newFilteredProducts;
     })
     return filteredProducts;
   }
@@ -36,17 +41,21 @@ class FiltersHandler {
         const parameter = event.target.parentElement?.parentElement?.previousElementSibling?.textContent?.toLowerCase() as string;
         if (event.target.type === 'checkbox') {
           if (event.target.checked) {
-            this.checkboxFilters.hasOwnProperty(parameter) 
-            ? 
-              this.checkboxFilters[parameter].push(event.target.id)
+            this.appliedFilters.hasOwnProperty(parameter) 
+            ?
+              this.appliedFilters[parameter].push(event.target.id)
             :
-              this.checkboxFilters[parameter] = [event.target.id];
+              this.appliedFilters[parameter] = [event.target.id];
           } else {
-            const index: number = this.checkboxFilters[parameter].indexOf(event.target.id);
-            this.checkboxFilters[parameter].splice(index, 1);
+            const index: number = this.appliedFilters[parameter].indexOf(event.target.id);
+            this.appliedFilters[parameter].splice(index, 1);
+            if (this.appliedFilters[parameter].length === 0) delete this.appliedFilters[parameter];
           }
+        } else if (event.target.type === 'range') {
+          const rangeInputs = event.target.parentElement?.querySelectorAll('.range__input') as NodeListOf<HTMLInputElement>;
+          this.appliedFilters[parameter] = [rangeInputs[0].value, rangeInputs[1].value];
         }
-        const filteredProducts = this.handleCheckboxs(this.checkboxFilters);
+        const filteredProducts = this.handleFilters(this.appliedFilters);
         GridView.draw(filteredProducts);
       }
     })
