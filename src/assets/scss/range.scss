@@ -17,8 +17,11 @@
 
 .range__inputs {
   position: relative;
-  height: 7px;
   margin-top: 10px;
+}
+
+.range__bar {
+  height: 7px;
   background-color: $green;
   border-radius: 5px;
 }
