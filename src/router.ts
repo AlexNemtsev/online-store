@@ -20,6 +20,23 @@ class Router {
     // Router.handleLocation();
   }
 
+  static setUrlParams(filters: {
+    [key: string]: Array<string | number>;
+  }): void {
+    const params = Router.transformToUrlParams(filters);
+    window.history.pushState(filters, '', params);
+  }
+
+  private static transformToUrlParams(filters: {
+    [key: string]: Array<string | number>;
+  }): string {
+    const query: string = Object.entries(filters)
+      .map(([key, values]) => `${key}=${values.join('|')}`)
+      .join('&');
+
+    return `?${query}`;
+  }
+
   static handleLocation(): void {
     const path: string = window.location.pathname;
     const content: string = Router.routes[path] || path['404'];

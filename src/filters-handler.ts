@@ -1,4 +1,5 @@
 import product from './interfaces/product';
+import Router from './router';
 import GridView from './view/grid-view';
 
 type filterKey = 'category' | 'brand';
@@ -12,7 +13,8 @@ class FiltersHandler {
     this.checkboxFilters = {};
   }
 
-  handleCheckboxs(filters: {
+  handleCheckboxes(filters: {
+    // Обработчик нажатий на чекбоксы
     [key: string]: Array<string | number>;
   }): product[] {
     let filteredProducts: product[] = this.products;
@@ -49,7 +51,9 @@ class FiltersHandler {
             this.checkboxFilters[parameter].splice(index, 1);
           }
         }
-        const filteredProducts = this.handleCheckboxs(this.checkboxFilters);
+        Router.setUrlParams(this.checkboxFilters);
+
+        const filteredProducts = this.handleCheckboxes(this.checkboxFilters);
         GridView.draw(filteredProducts);
       }
     });
