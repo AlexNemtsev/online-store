@@ -3,7 +3,8 @@ import './style.scss';
 import { setRoute, handleLocation } from './router';
 
 import DataLoader from './data-loader';
-import GridView from './view/grid-view';
+import MainPageView from './view/main-page-view';
+import FiltersHandler from './filters-handler';
 import product from './interfaces/product';
 
 let allTheProducts: product[];
@@ -16,7 +17,9 @@ cartLink?.addEventListener('click', setRoute);
 
 DataLoader.fetchProductsData().then((products) => {
   allTheProducts = products;
-  GridView.draw(products);
+  MainPageView.draw(products);
+  const filtersHandler = new FiltersHandler(products);
+  filtersHandler.setHandlers();
 });
 
 window.addEventListener('popstate', handleLocation);
