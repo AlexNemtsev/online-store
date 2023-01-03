@@ -37,6 +37,7 @@ class FiltersView {
     const rangeInputs = [
       ...block.querySelectorAll('.range__input'),
     ] as HTMLInputElement[];
+    const rangeBar = block.querySelector('.range__bar') as HTMLElement;
 
     rangeFrom.textContent = isPrice ? `$${min}` : `${min}`;
     rangeTo.textContent = isPrice ? `$${max}` : `${max}`;
@@ -44,6 +45,60 @@ class FiltersView {
       rangeInput.min = min.toString();
       rangeInput.max = max.toString();
       rangeInput.value = index === 0 ? min.toString() : max.toString();
+    });
+
+    const minGap: number = 0;
+    FiltersView.setRangeHandler(
+      rangeInputs[0],
+      true,
+      rangeInputs[0],
+      rangeInputs[1],
+      minGap,
+      rangeFrom,
+      isPrice,
+      rangeBar,
+      min,
+      max,
+    );
+    FiltersView.setRangeHandler(
+      rangeInputs[1],
+      false,
+      rangeInputs[0],
+      rangeInputs[1],
+      minGap,
+      rangeTo,
+      isPrice,
+      rangeBar,
+      min,
+      max,
+    );
+  }
+
+  private static setRangeHandler(
+    range: HTMLInputElement,
+    isLeft: boolean,
+    rangeLeft: HTMLInputElement,
+    rangeRight: HTMLInputElement,
+    minGap: number,
+    textBlock: HTMLElement,
+    isPrice: boolean,
+    rangeBar: HTMLElement,
+    min: number,
+    max: number,
+  ): void {
+    range.addEventListener('input', () => {
+      const leftValue = parseInt(rangeLeft.value);
+      const rightValue = parseInt(rangeRight.value);
+      if (rightValue - leftValue <= minGap) {
+        range.value = (isLeft
+          ? rightValue - minGap
+          : leftValue + minGap
+        ).toString();
+      }
+      textBlock.textContent = isPrice ? `$${range.value}` : `${range.value}`;
+      const percentLeft = ((leftValue - min) / (max - min)) * 100;
+      const percentRight = ((rightValue - min) / (max - min)) * 100;
+      rangeBar.style.background = `linear-gradient(to right, #CCCCCC ${percentLeft}% , #1DA154 ${percentLeft}% , #1DA154 ${percentRight}%, #CCCCCC ${percentRight}%)`;
     });
   }
 
