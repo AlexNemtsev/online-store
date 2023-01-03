@@ -1,7 +1,7 @@
 import product from '../interfaces/product';
 
 class ProductPageView {
-  private fillTextElements(
+  private static fillTextElements(
     elementsArray: Element[],
     valuesArray: Array<string | number>,
   ): void {
@@ -10,7 +10,7 @@ class ProductPageView {
     });
   }
 
-  private setImageClickHandler(
+  private static setImageClickHandler(
     imagesList: Element,
     mainImage: HTMLImageElement,
   ): void {
@@ -23,7 +23,7 @@ class ProductPageView {
     });
   }
 
-  private fillImages(
+  private static fillImages(
     parentElement: Element,
     imagesListTag: string,
     mainImageTag: string,
@@ -52,10 +52,10 @@ class ProductPageView {
       }
     }
 
-    this.setImageClickHandler(productImagesList, productMainImage);
+    ProductPageView.setImageClickHandler(productImagesList, productMainImage);
   }
 
-  fillPageTemplate(item: product): HTMLElement {
+  static fillPageTemplate(item: product): HTMLElement {
     const template = document.getElementById(
       'product-page-template',
     ) as HTMLTemplateElement;
@@ -73,7 +73,7 @@ class ProductPageView {
     const productPrice = productPage.querySelector(
       '.product__price span',
     ) as Element;
-    this.fillTextElements(
+    ProductPageView.fillTextElements(
       [...breadcrumbs, productTitle, ...productProps, productPrice],
       [
         item.category,
@@ -90,7 +90,7 @@ class ProductPageView {
       ],
     );
 
-    this.fillImages(
+    ProductPageView.fillImages(
       productPage,
       '.product__images-list',
       '.product__image--main',
