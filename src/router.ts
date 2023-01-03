@@ -1,9 +1,21 @@
+import filters from './interfaces/filters';
+
+const mainPageHandler = (): void => {
+  console.log('Draw main');
+};
+
+const productPageHandler = (): void => {
+  console.log('Draw product');
+};
+
 class Router {
-  private static routes: { [key: string]: string } = {
+  private static routes: { [key: string]: () => void } = {
     // '404': '404 ERROR',
     // '/': 'HOME',
     // '/about': 'ABOUT',
     // '/lorem': 'LOREM',
+    '/': mainPageHandler,
+    'product-details': productPageHandler,
   };
 
   static setRoute(e: Event): void {
@@ -17,19 +29,16 @@ class Router {
     }
 
     window.history.pushState({}, '', href);
-    // Router.handleLocation();
+    Router.handleLocation();
   }
 
-  static setUrlParams(filters: {
-    [key: string]: Array<string | number>;
-  }): void {
+  static setUrlParams(filters: filters): void {
     const params = Router.transformToUrlParams(filters);
     window.history.pushState(filters, '', params);
+    Router.handleLocation();
   }
 
-  private static transformToUrlParams(filters: {
-    [key: string]: Array<string | number>;
-  }): string {
+  private static transformToUrlParams(filters: filters): string {
     const query: string = Object.entries(filters)
       .map(([key, values]) => `${key}=${values.join('|')}`)
       .join('&');
@@ -37,16 +46,35 @@ class Router {
     return `?${query}`;
   }
 
-  static handleLocation(): void {
-    const path: string = window.location.pathname;
-    const content: string = Router.routes[path] || path['404'];
-    Router.updatePage(content);
+  private static transformUrlParams(urlParams: string): filters {
+    const params: string = urlParams.substring(1);
+    const filters: filters = {};
+
+    params.split('&').forEach((filterString) => {
+      const [key, values] = filterString.split('=');
+      filters[key] = values.split('|');
+    });
+
+    return filters;
   }
 
-  private static updatePage(content: string): void {
-    const header: HTMLElement | null = document.querySelector('h1');
-    if (header) header.textContent = content;
+  static handleLocation(): void {
+    const path: string = window.location.pathname;
+
+    if (path === '/') {
+      Router.routes[path]();
+    } else {
+      const parts = path.split('/');
+      Router.routes[parts[1]]();
+    }
+    // const content: string = Router.routes[path] || path['404'];
+    // Router.updatePage(content);
   }
+
+  // private static updatePage(content: string): void {
+  //   const header: HTMLElement | null = document.querySelector('h1');
+  //   if (header) header.textContent = content;
+  // }
 }
 
 export default Router;
