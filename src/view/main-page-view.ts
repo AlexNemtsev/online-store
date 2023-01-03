@@ -10,7 +10,7 @@ class MainPageView {
     container.classList.add('main-page', 'container');
     const cards = document.createElement('div');
     cards.classList.add('cards');
-    
+
     parentElement.append(container);
     container.append(FiltersView.draw(products), cards);
     GridView.draw(products);
