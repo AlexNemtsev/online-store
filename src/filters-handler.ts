@@ -1,3 +1,4 @@
+import filters from './interfaces/filters';
 import product from './interfaces/product';
 import Router from './router';
 import GridView from './view/grid-view';
@@ -6,7 +7,7 @@ type filterKey = 'category' | 'brand';
 
 class FiltersHandler {
   products: product[];
-  checkboxFilters: { [key: string]: Array<string | number> };
+  checkboxFilters: filters;
 
   constructor(products: product[]) {
     this.products = products;
@@ -14,10 +15,7 @@ class FiltersHandler {
     this.setHandlers();
   }
 
-  handleCheckboxes(filters: {
-    // Обработчик нажатий на чекбоксы
-    [key: string]: Array<string | number>;
-  }): product[] {
+  handleCheckboxes(filters: filters): product[] {
     let filteredProducts: product[] = this.products;
     let newFilteredProducts: product[] = [];
     const filterArray = Object.entries(filters);
