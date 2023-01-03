@@ -11,6 +11,7 @@ class FiltersHandler {
   constructor(products: product[]) {
     this.products = products;
     this.checkboxFilters = {};
+    this.setHandlers();
   }
 
   handleCheckboxes(filters: {
@@ -34,7 +35,7 @@ class FiltersHandler {
     return filteredProducts;
   }
 
-  setHandlers(): void {
+  private setHandlers(): void {
     const filters = document.querySelector('.filters') as HTMLElement;
     filters.addEventListener('click', (event: Event) => {
       if (event.target instanceof HTMLInputElement) {
@@ -53,7 +54,9 @@ class FiltersHandler {
         }
         Router.setUrlParams(this.checkboxFilters);
 
-        const filteredProducts = this.handleCheckboxes(this.checkboxFilters);
+        const filteredProducts: product[] = this.handleCheckboxes(
+          this.checkboxFilters,
+        );
         GridView.draw(filteredProducts);
       }
     });

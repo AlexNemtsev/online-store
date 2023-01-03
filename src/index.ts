@@ -19,7 +19,6 @@ DataLoader.fetchProductsData().then((products) => {
   allTheProducts = products;
   MainPageView.draw(products);
   const filtersHandler = new FiltersHandler(products);
-  filtersHandler.setHandlers();
 });
 
 window.addEventListener('popstate', Router.handleLocation);
