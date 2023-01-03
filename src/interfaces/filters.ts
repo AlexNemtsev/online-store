@@ -1,3 +1,3 @@
-type filters = { [key: string]: Array<string | number> };
+type filtersObject = { [key: string]: Array<string | number> };
 
-export default filters;
+export default filtersObject;

@@ -1,4 +1,4 @@
-import filters from './interfaces/filters';
+import filtersObject from './interfaces/filters';
 import product from './interfaces/product';
 import Router from './router';
 import GridView from './view/grid-view';
@@ -7,7 +7,7 @@ type filterKey = 'category' | 'brand' | 'price' | 'stock';
 
 class FiltersHandler {
   products: product[];
-  appliedFilters: { [key: string]: Array<string | number> };
+  appliedFilters: filtersObject;
   checkboxFilters: string[];
 
   constructor(products: product[]) {
@@ -17,9 +17,7 @@ class FiltersHandler {
     this.setHandlers();
   }
 
-  private handleFilters(filters: {
-    [key: string]: Array<string | number>;
-  }): product[] {
+  private handleFilters(filters: filtersObject): product[] {
     let filteredProducts: product[] = this.products;
     const filterArray: Array<[string, Array<string | number>]> = Object.entries(
       filters,
@@ -72,6 +70,8 @@ class FiltersHandler {
             rangeInputs[1].value,
           ];
         }
+        Router.setUrlParams(this.appliedFilters);
+
         const filteredProducts = this.handleFilters(this.appliedFilters);
         GridView.draw(filteredProducts);
       }

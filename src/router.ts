@@ -1,4 +1,4 @@
-import filters from './interfaces/filters';
+import filtersObject from './interfaces/filters';
 
 const mainPageHandler = (): void => {
   console.log('Draw main');
@@ -32,13 +32,13 @@ class Router {
     Router.handleLocation();
   }
 
-  static setUrlParams(filters: filters): void {
+  static setUrlParams(filters: filtersObject): void {
     const params = Router.transformToUrlParams(filters);
     window.history.pushState(filters, '', params);
     Router.handleLocation();
   }
 
-  private static transformToUrlParams(filters: filters): string {
+  private static transformToUrlParams(filters: filtersObject): string {
     const query: string = Object.entries(filters)
       .map(([key, values]) => `${key}=${values.join('|')}`)
       .join('&');
@@ -46,9 +46,9 @@ class Router {
     return `?${query}`;
   }
 
-  private static transformUrlParams(urlParams: string): filters {
+  private static transformUrlParams(urlParams: string): filtersObject {
     const params: string = urlParams.substring(1);
-    const filters: filters = {};
+    const filters: filtersObject = {};
 
     params.split('&').forEach((filterString) => {
       const [key, values] = filterString.split('=');
