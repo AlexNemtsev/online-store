@@ -1,14 +1,15 @@
 import FiltersObject from './interfaces/filters';
 import Product from './interfaces/product';
+// TODO: снять зацикливание
 import Router from './router';
-import GridView from './view/grid-view';
 
 type FilterKey = 'category' | 'brand' | 'price' | 'stock';
 
 class FiltersHandler {
   private static handlerInstance: FiltersHandler;
 
-  private static products: Product[];
+  // TODO: перенести это поле из класса
+  private static _products: Product[];
 
   private static checkboxFilters = ['category', 'brand'];
 
@@ -19,7 +20,7 @@ class FiltersHandler {
   }
 
   public static get instance() {
-    if (!this.products)
+    if (!this._products)
       throw new Error('Singleton class must be initialized before!');
 
     if (!FiltersHandler.handlerInstance)
@@ -27,13 +28,17 @@ class FiltersHandler {
     return FiltersHandler.handlerInstance;
   }
 
+  public static get products() {
+    return FiltersHandler._products;
+  }
+
   public static init(products: Product[]): void {
-    FiltersHandler.products = products;
-    FiltersHandler.setHandlers();
+    FiltersHandler._products = products;
+    // FiltersHandler.setHandlers();
   }
 
   public static handleFilters(filters: FiltersObject): Product[] {
-    let filteredProducts: Product[] = FiltersHandler.products;
+    let filteredProducts: Product[] = FiltersHandler._products;
     const filterArray: Array<[string, Array<string | number>]> = Object.entries(
       filters,
     );
@@ -56,7 +61,8 @@ class FiltersHandler {
     return filteredProducts;
   }
 
-  private static setHandlers(): void {
+  // TODO: Вынести этот метод из класса
+  public static setHandlers(): void {
     const filters = document.querySelector('.filters') as HTMLElement;
     filters.addEventListener('click', (event: Event) => {
       if (event.target instanceof HTMLInputElement) {
@@ -91,11 +97,6 @@ class FiltersHandler {
           ];
         }
         Router.setUrlParams(FiltersHandler.appliedFilters);
-
-        const filteredProducts = FiltersHandler.handleFilters(
-          FiltersHandler.appliedFilters,
-        );
-        GridView.draw(filteredProducts);
       }
     });
   }

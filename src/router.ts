@@ -1,17 +1,7 @@
 import FiltersObject from './interfaces/filters';
-// import product from './interfaces/product';
-// import MainPageView from './view/main-page-view';
-
-// const productPageHandler = (): void => {
-//   console.log('Draw product');
-// };
+import MainPageView from './view/main-page-view';
 
 class Router {
-  // private static routes: { [key: string]: (products: product[]) => void } = {
-  //   '/': MainPageView.draw,
-  //   'product-details': productPageHandler,
-  // };
-
   static setRoute = (e: Event): void => {
     const event: Event = e || window.event;
     event.preventDefault();
@@ -40,14 +30,16 @@ class Router {
     return `?${query}`;
   }
 
-  private static transformUrlParams(urlParams?: string): FiltersObject {
-    const params: string | undefined = urlParams?.substring(1);
+  private static transformUrlParams(urlParams: string): FiltersObject {
     const filters: FiltersObject = {};
 
-    params?.split('&').forEach((filterString) => {
-      const [key, values] = filterString.split('=');
-      filters[key] = values?.split('|');
-    });
+    if (urlParams) {
+      const params: string = urlParams.substring(1);
+      params.split('&').forEach((filterString) => {
+        const [key, values] = filterString.split('=');
+        filters[key] = values?.split('|');
+      });
+    }
 
     return filters;
   }
@@ -58,26 +50,13 @@ class Router {
 
     switch (path) {
       case '/':
-        // MainPageView.draw()
+        MainPageView.draw(filters, Router.setRoute);
         break;
 
       default:
         break;
     }
-
-    // if (path === '/') Router.routes[path]();
-    // else {
-    //   const parts = path.split('/');
-    //   Router.routes[parts[1]]();
-    // }
-    // const content: string = Router.routes[path] || path['404'];
-    // Router.updatePage(content);
   }
-
-  // private static updatePage(content: string): void {
-  //   const header: HTMLElement | null = document.querySelector('h1');
-  //   if (header) header.textContent = content;
-  // }
 }
 
 export default Router;
