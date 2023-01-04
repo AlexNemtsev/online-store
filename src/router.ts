@@ -47,10 +47,11 @@ class Router {
   static handleLocation(): void {
     const path: string = window.location.pathname;
     const filters = Router.transformUrlParams(window.location.search);
+    const prevState: unknown = window.history.state;
 
     switch (path) {
       case '/':
-        MainPageView.draw(filters, Router.setRoute);
+        MainPageView.draw(filters, Router.setRoute, prevState);
         break;
 
       default:
