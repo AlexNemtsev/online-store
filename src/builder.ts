@@ -4,6 +4,12 @@ class Builder {
     block.classList.add(...classes);
     return block;
   }
+
+  static createClone(id: string): HTMLElement {
+    const template = document.getElementById(id) as HTMLTemplateElement;
+    const block = template.content.cloneNode(true) as HTMLElement;
+    return block;
+  }
 }
 
 export default Builder;
