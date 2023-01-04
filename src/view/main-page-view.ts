@@ -1,9 +1,9 @@
 import GridView from './grid-view';
 import FiltersView from './filters-view';
-import product from '../interfaces/product';
+import Product from '../interfaces/product';
 
 class MainPageView {
-  static draw(products: product[]): void {
+  static draw(products: Product[], linkHandler: (e: Event) => void): void {
     const parentElement = document.querySelector('.main') as HTMLElement;
     parentElement.innerHTML = '';
     const container = document.createElement('div');
@@ -13,7 +13,7 @@ class MainPageView {
 
     parentElement.append(container);
     container.append(FiltersView.draw(products), cards);
-    GridView.draw(products);
+    GridView.draw(products, linkHandler);
   }
 }
 

@@ -1,24 +1,18 @@
-import filtersObject from './interfaces/filters';
+import FiltersObject from './interfaces/filters';
+// import product from './interfaces/product';
+// import MainPageView from './view/main-page-view';
 
-const mainPageHandler = (): void => {
-  console.log('Draw main');
-};
-
-const productPageHandler = (): void => {
-  console.log('Draw product');
-};
+// const productPageHandler = (): void => {
+//   console.log('Draw product');
+// };
 
 class Router {
-  private static routes: { [key: string]: () => void } = {
-    // '404': '404 ERROR',
-    // '/': 'HOME',
-    // '/about': 'ABOUT',
-    // '/lorem': 'LOREM',
-    '/': mainPageHandler,
-    'product-details': productPageHandler,
-  };
+  // private static routes: { [key: string]: (products: product[]) => void } = {
+  //   '/': MainPageView.draw,
+  //   'product-details': productPageHandler,
+  // };
 
-  static setRoute(e: Event): void {
+  static setRoute = (e: Event): void => {
     const event: Event = e || window.event;
     event.preventDefault();
 
@@ -30,15 +24,15 @@ class Router {
 
     window.history.pushState({}, '', href);
     Router.handleLocation();
-  }
+  };
 
-  static setUrlParams(filters: filtersObject): void {
+  static setUrlParams(filters: FiltersObject): void {
     const params = Router.transformToUrlParams(filters);
     window.history.pushState(filters, '', params);
     Router.handleLocation();
   }
 
-  private static transformToUrlParams(filters: filtersObject): string {
+  private static transformToUrlParams(filters: FiltersObject): string {
     const query: string = Object.entries(filters)
       .map(([key, values]) => `${key}=${values.join('|')}`)
       .join('&');
@@ -46,13 +40,13 @@ class Router {
     return `?${query}`;
   }
 
-  private static transformUrlParams(urlParams: string): filtersObject {
-    const params: string = urlParams.substring(1);
-    const filters: filtersObject = {};
+  private static transformUrlParams(urlParams?: string): FiltersObject {
+    const params: string | undefined = urlParams?.substring(1);
+    const filters: FiltersObject = {};
 
-    params.split('&').forEach((filterString) => {
+    params?.split('&').forEach((filterString) => {
       const [key, values] = filterString.split('=');
-      filters[key] = values.split('|');
+      filters[key] = values?.split('|');
     });
 
     return filters;
@@ -60,13 +54,22 @@ class Router {
 
   static handleLocation(): void {
     const path: string = window.location.pathname;
+    const filters = Router.transformUrlParams(window.location.search);
 
-    if (path === '/') {
-      Router.routes[path]();
-    } else {
-      const parts = path.split('/');
-      Router.routes[parts[1]]();
+    switch (path) {
+      case '/':
+        // MainPageView.draw()
+        break;
+
+      default:
+        break;
     }
+
+    // if (path === '/') Router.routes[path]();
+    // else {
+    //   const parts = path.split('/');
+    //   Router.routes[parts[1]]();
+    // }
     // const content: string = Router.routes[path] || path['404'];
     // Router.updatePage(content);
   }

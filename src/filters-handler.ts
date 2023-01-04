@@ -1,16 +1,18 @@
-import filtersObject from './interfaces/filters';
-import product from './interfaces/product';
+import FiltersObject from './interfaces/filters';
+import Product from './interfaces/product';
 import Router from './router';
 import GridView from './view/grid-view';
 
-type filterKey = 'category' | 'brand' | 'price' | 'stock';
+type FilterKey = 'category' | 'brand' | 'price' | 'stock';
 
 class FiltersHandler {
-  private static _instance: FiltersHandler;
+  private static handlerInstance: FiltersHandler;
 
-  private static products: product[];
+  private static products: Product[];
+
   private static checkboxFilters = ['category', 'brand'];
-  private static appliedFilters: filtersObject = {};
+
+  private static appliedFilters: FiltersObject = {};
 
   private constructor() {
     FiltersHandler.setHandlers();
@@ -20,38 +22,35 @@ class FiltersHandler {
     if (!this.products)
       throw new Error('Singleton class must be initialized before!');
 
-    return (
-      FiltersHandler._instance ||
-      (FiltersHandler._instance = new FiltersHandler())
-    );
+    if (!FiltersHandler.handlerInstance)
+      FiltersHandler.handlerInstance = new FiltersHandler();
+    return FiltersHandler.handlerInstance;
   }
 
-  public static init(products: product[]): void {
+  public static init(products: Product[]): void {
     FiltersHandler.products = products;
     FiltersHandler.setHandlers();
   }
 
-  private static handleFilters(filters: filtersObject): product[] {
-    let filteredProducts: product[] = FiltersHandler.products;
+  public static handleFilters(filters: FiltersObject): Product[] {
+    let filteredProducts: Product[] = FiltersHandler.products;
     const filterArray: Array<[string, Array<string | number>]> = Object.entries(
       filters,
     );
     filterArray.forEach((filter) => {
-      let newFilteredProducts: product[] = [];
-      const parameter = filter[0] as filterKey;
-      for (let product of filteredProducts) {
+      const newFilteredProducts: Product[] = [];
+      const parameter = filter[0] as FilterKey;
+      filteredProducts.forEach((product) => {
         if (FiltersHandler.checkboxFilters.includes(filter[0])) {
           if (filter[1].includes(product[parameter]))
             newFilteredProducts.push(product);
-        } else {
-          if (
-            product[parameter] >= filter[1][0] &&
-            product[parameter] <= filter[1][1]
-          ) {
-            newFilteredProducts.push(product);
-          }
+        } else if (
+          product[parameter] >= filter[1][0] &&
+          product[parameter] <= filter[1][1]
+        ) {
+          newFilteredProducts.push(product);
         }
-      }
+      });
       filteredProducts = newFilteredProducts;
     });
     return filteredProducts;
@@ -64,9 +63,16 @@ class FiltersHandler {
         const parameter = event.target.parentElement?.parentElement?.previousElementSibling?.textContent?.toLowerCase() as string;
         if (event.target.type === 'checkbox') {
           if (event.target.checked) {
-            FiltersHandler.appliedFilters.hasOwnProperty(parameter)
-              ? FiltersHandler.appliedFilters[parameter].push(event.target.id)
-              : (FiltersHandler.appliedFilters[parameter] = [event.target.id]);
+            if (
+              Object.prototype.hasOwnProperty.call(
+                FiltersHandler.appliedFilters,
+                parameter,
+              )
+            ) {
+              FiltersHandler.appliedFilters[parameter].push(event.target.id);
+            } else {
+              FiltersHandler.appliedFilters[parameter] = [event.target.id];
+            }
           } else {
             const index: number = FiltersHandler.appliedFilters[
               parameter
