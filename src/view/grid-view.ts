@@ -1,10 +1,10 @@
-import product from '../interfaces/product';
-import Router from '../router';
+import Product from '../interfaces/product';
 
 class GridView {
   private static fillCard(
-    item: product,
+    item: Product,
     template: HTMLTemplateElement,
+    linkHandler: (event: Event) => void,
   ): HTMLDivElement {
     const card = template.content.cloneNode(true) as HTMLDivElement;
     card.className = 'card';
@@ -36,12 +36,12 @@ class GridView {
 
     const detailsLink = card.querySelector('a') as HTMLAnchorElement;
     detailsLink.href = `/product-details/${item.id}`;
-    detailsLink.addEventListener('click', Router.setRoute);
+    detailsLink.addEventListener('click', linkHandler);
 
     return card;
   }
 
-  static draw(products: product[]): void {
+  static draw(products: Product[], linkHandler: (e: Event) => void): void {
     const cards = document.querySelector('.cards') as HTMLElement;
     cards.innerHTML = '';
     const template = document.getElementById(
@@ -50,7 +50,7 @@ class GridView {
 
     if (template) {
       products.forEach((item) =>
-        cards.append(GridView.fillCard(item, template)),
+        cards.append(GridView.fillCard(item, template, linkHandler)),
       );
     }
   }

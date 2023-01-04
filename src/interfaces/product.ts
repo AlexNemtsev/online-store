@@ -1,4 +1,4 @@
-type product = {
+type Product = {
   id: number;
   title: string;
   description: string;
@@ -10,6 +10,6 @@ type product = {
   category: string;
   thumbnail: string;
   images: string[];
-}
+};
 
-export default product;
+export default Product;

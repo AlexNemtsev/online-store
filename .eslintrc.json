@@ -20,7 +20,15 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "error"
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/unbound-method": [
+      "error",
+      {
+        "ignoreStatic": true
+      }
+    ],
+    "no-param-reassign": [2, { "props": false }],
+    "no-underscore-dangle": "off"
   },
   "ignorePatterns": ["webpack.*"]
 }

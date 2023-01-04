@@ -1,24 +1,8 @@
-import filtersObject from './interfaces/filters';
-
-const mainPageHandler = (): void => {
-  console.log('Draw main');
-};
-
-const productPageHandler = (): void => {
-  console.log('Draw product');
-};
+import FiltersObject from './interfaces/filters';
+import MainPageView from './view/main-page-view';
 
 class Router {
-  private static routes: { [key: string]: () => void } = {
-    // '404': '404 ERROR',
-    // '/': 'HOME',
-    // '/about': 'ABOUT',
-    // '/lorem': 'LOREM',
-    '/': mainPageHandler,
-    'product-details': productPageHandler,
-  };
-
-  static setRoute(e: Event): void {
+  static setRoute = (e: Event): void => {
     const event: Event = e || window.event;
     event.preventDefault();
 
@@ -30,15 +14,15 @@ class Router {
 
     window.history.pushState({}, '', href);
     Router.handleLocation();
-  }
+  };
 
-  static setUrlParams(filters: filtersObject): void {
+  static setUrlParams(filters: FiltersObject): void {
     const params = Router.transformToUrlParams(filters);
     window.history.pushState(filters, '', params);
     Router.handleLocation();
   }
 
-  private static transformToUrlParams(filters: filtersObject): string {
+  private static transformToUrlParams(filters: FiltersObject): string {
     const query: string = Object.entries(filters)
       .map(([key, values]) => `${key}=${values.join('|')}`)
       .join('&');
@@ -46,35 +30,33 @@ class Router {
     return `?${query}`;
   }
 
-  private static transformUrlParams(urlParams: string): filtersObject {
-    const params: string = urlParams.substring(1);
-    const filters: filtersObject = {};
+  private static transformUrlParams(urlParams: string): FiltersObject {
+    const filters: FiltersObject = {};
 
-    params.split('&').forEach((filterString) => {
-      const [key, values] = filterString.split('=');
-      filters[key] = values.split('|');
-    });
+    if (urlParams) {
+      const params: string = urlParams.substring(1);
+      params.split('&').forEach((filterString) => {
+        const [key, values] = filterString.split('=');
+        filters[key] = values?.split('|');
+      });
+    }
 
     return filters;
   }
 
   static handleLocation(): void {
     const path: string = window.location.pathname;
+    const filters = Router.transformUrlParams(window.location.search);
 
-    if (path === '/') {
-      Router.routes[path]();
-    } else {
-      const parts = path.split('/');
-      Router.routes[parts[1]]();
+    switch (path) {
+      case '/':
+        MainPageView.draw(filters, Router.setRoute);
+        break;
+
+      default:
+        break;
     }
-    // const content: string = Router.routes[path] || path['404'];
-    // Router.updatePage(content);
   }
-
-  // private static updatePage(content: string): void {
-  //   const header: HTMLElement | null = document.querySelector('h1');
-  //   if (header) header.textContent = content;
-  // }
 }
 
 export default Router;

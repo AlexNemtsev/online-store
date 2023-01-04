@@ -1,13 +1,13 @@
-import product from '../interfaces/product';
+import Product from '../interfaces/product';
 
 class ProductPageView {
   private static fillTextElements(
     elementsArray: Element[],
     valuesArray: Array<string | number>,
   ): void {
-    elementsArray.forEach((item: Element, index: number): void => {
-      item.textContent = `${valuesArray[index]}`;
-    });
+    for (let i = 0; i < elementsArray.length; i += 1) {
+      elementsArray[i].textContent = `${valuesArray[i]}`;
+    }
   }
 
   private static setImageClickHandler(
@@ -27,7 +27,7 @@ class ProductPageView {
     parentElement: Element,
     imagesListTag: string,
     mainImageTag: string,
-    item: product,
+    item: Product,
   ): void {
     const productImagesList = parentElement.querySelector(
       imagesListTag,
@@ -55,7 +55,7 @@ class ProductPageView {
     ProductPageView.setImageClickHandler(productImagesList, productMainImage);
   }
 
-  static fillPageTemplate(item: product): HTMLElement {
+  static fillPageTemplate(item: Product): HTMLElement {
     const template = document.getElementById(
       'product-page-template',
     ) as HTMLTemplateElement;

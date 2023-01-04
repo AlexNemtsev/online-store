@@ -1,5 +1,5 @@
 import DataHandler from '../data-handler';
-import product from '../interfaces/product';
+import Product from '../interfaces/product';
 
 class FiltersView {
   private static fillCheckboxGroup(
@@ -41,13 +41,14 @@ class FiltersView {
 
     rangeFrom.textContent = isPrice ? `$${min}` : `${min}`;
     rangeTo.textContent = isPrice ? `$${max}` : `${max}`;
-    rangeInputs.forEach((rangeInput, index) => {
-      rangeInput.min = min.toString();
-      rangeInput.max = max.toString();
-      rangeInput.value = index === 0 ? min.toString() : max.toString();
-    });
 
-    const minGap: number = 0;
+    for (let i = 0; i < rangeInputs.length; i += 1) {
+      rangeInputs[i].min = min.toString();
+      rangeInputs[i].max = max.toString();
+      rangeInputs[i].value = i === 0 ? min.toString() : max.toString();
+    }
+
+    const minGap = 0;
     FiltersView.setRangeHandler(
       rangeInputs[0],
       true,
@@ -87,8 +88,8 @@ class FiltersView {
     max: number,
   ): void {
     range.addEventListener('input', () => {
-      const leftValue = parseInt(rangeLeft.value);
-      const rightValue = parseInt(rangeRight.value);
+      const leftValue = parseInt(rangeLeft.value, 10);
+      const rightValue = parseInt(rangeRight.value, 10);
       if (rightValue - leftValue <= minGap) {
         range.value = (isLeft
           ? rightValue - minGap
@@ -102,7 +103,7 @@ class FiltersView {
     });
   }
 
-  static draw(items: product[]): HTMLElement {
+  static draw(items: Product[]): HTMLElement {
     const blockTemplate = document.getElementById(
       'filters-template',
     ) as HTMLTemplateElement;
