@@ -1,26 +1,21 @@
 import './style.scss';
 
-import { setRoute, handleLocation } from './router';
+import Router from './router';
 
 import DataLoader from './data-loader';
-import MainPageView from './view/main-page-view';
 import FiltersHandler from './filters-handler';
-import product from './interfaces/product';
-
-let allTheProducts: product[];
 
 const logoLink = document.getElementById('logo-link');
-logoLink?.addEventListener('click', setRoute);
+logoLink?.addEventListener('click', (event) => Router.setRoute(event));
 
 const cartLink = document.getElementById('cart-link');
-cartLink?.addEventListener('click', setRoute);
+cartLink?.addEventListener('click', (event) => Router.setRoute(event));
 
-DataLoader.fetchProductsData().then((products) => {
-  allTheProducts = products;
-  MainPageView.draw(products);
-  const filtersHandler = new FiltersHandler(products);
-  filtersHandler.setHandlers();
-});
+DataLoader.fetchProductsData()
+  .then((products) => {
+    FiltersHandler.init(products);
+    Router.handleLocation();
+  })
+  .catch((error) => console.log(error));
 
-window.addEventListener('popstate', handleLocation);
-handleLocation();
+window.addEventListener('popstate', () => Router.handleLocation());

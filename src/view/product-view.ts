@@ -1,16 +1,16 @@
-import product from '../interfaces/product';
+import Product from '../interfaces/product';
 
 class ProductPageView {
-  private fillTextElements(
+  private static fillTextElements(
     elementsArray: Element[],
     valuesArray: Array<string | number>,
   ): void {
-    elementsArray.forEach((item: Element, index: number): void => {
-      item.textContent = `${valuesArray[index]}`;
-    });
+    for (let i = 0; i < elementsArray.length; i += 1) {
+      elementsArray[i].textContent = `${valuesArray[i]}`;
+    }
   }
 
-  private setImageClickHandler(
+  private static setImageClickHandler(
     imagesList: Element,
     mainImage: HTMLImageElement,
   ): void {
@@ -23,11 +23,11 @@ class ProductPageView {
     });
   }
 
-  private fillImages(
+  private static fillImages(
     parentElement: Element,
     imagesListTag: string,
     mainImageTag: string,
-    item: product,
+    item: Product,
   ): void {
     const productImagesList = parentElement.querySelector(
       imagesListTag,
@@ -52,10 +52,10 @@ class ProductPageView {
       }
     }
 
-    this.setImageClickHandler(productImagesList, productMainImage);
+    ProductPageView.setImageClickHandler(productImagesList, productMainImage);
   }
 
-  fillPageTemplate(item: product): HTMLElement {
+  static fillPageTemplate(item: Product): HTMLElement {
     const template = document.getElementById(
       'product-page-template',
     ) as HTMLTemplateElement;
@@ -73,7 +73,7 @@ class ProductPageView {
     const productPrice = productPage.querySelector(
       '.product__price span',
     ) as Element;
-    this.fillTextElements(
+    ProductPageView.fillTextElements(
       [...breadcrumbs, productTitle, ...productProps, productPrice],
       [
         item.category,
@@ -90,7 +90,7 @@ class ProductPageView {
       ],
     );
 
-    this.fillImages(
+    ProductPageView.fillImages(
       productPage,
       '.product__images-list',
       '.product__image--main',

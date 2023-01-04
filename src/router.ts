@@ -1,33 +1,62 @@
-const updatePage = (content: string): void => {
-  const header: HTMLElement | null = document.querySelector('h1');
-  if (header) header.textContent = content;
-};
+import FiltersObject from './interfaces/filters';
+import MainPageView from './view/main-page-view';
 
-const routes: { [key: string]: string } = {
-  '404': '404 ERROR',
-  '/': 'HOME',
-  '/about': 'ABOUT',
-  '/lorem': 'LOREM',
-};
+class Router {
+  static setRoute = (e: Event): void => {
+    const event: Event = e || window.event;
+    event.preventDefault();
 
-const handleLocation = (): void => {
-  const path: string = window.location.pathname;
-  const content: string = routes[path] || path['404'];
-  updatePage(content);
-};
+    let href: string | undefined;
 
-const setRoute = (e: Event): void => {
-  const event: Event = e || window.event;
-  event.preventDefault();
+    if (event.currentTarget instanceof HTMLAnchorElement) {
+      href = event.currentTarget.href;
+    }
 
-  let href: string | undefined;
+    window.history.pushState({}, '', href);
+    Router.handleLocation();
+  };
 
-  if (event.currentTarget instanceof HTMLAnchorElement) {
-    href = event.currentTarget.href;
+  static setUrlParams(filters: FiltersObject): void {
+    const params = Router.transformToUrlParams(filters);
+    window.history.pushState(filters, '', params);
+    Router.handleLocation();
   }
 
-  window.history.pushState({}, '', href);
-  // handleLocation();
-};
+  private static transformToUrlParams(filters: FiltersObject): string {
+    const query: string = Object.entries(filters)
+      .map(([key, values]) => `${key}=${values.join('|')}`)
+      .join('&');
 
-export { setRoute, handleLocation };
+    return `?${query}`;
+  }
+
+  private static transformUrlParams(urlParams: string): FiltersObject {
+    const filters: FiltersObject = {};
+
+    if (urlParams) {
+      const params: string = urlParams.substring(1);
+      params.split('&').forEach((filterString) => {
+        const [key, values] = filterString.split('=');
+        filters[key] = values?.split('|');
+      });
+    }
+
+    return filters;
+  }
+
+  static handleLocation(): void {
+    const path: string = window.location.pathname;
+    const filters = Router.transformUrlParams(window.location.search);
+
+    switch (path) {
+      case '/':
+        MainPageView.draw(filters, Router.setRoute);
+        break;
+
+      default:
+        break;
+    }
+  }
+}
+
+export default Router;

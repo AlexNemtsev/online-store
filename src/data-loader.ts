@@ -1,7 +1,7 @@
-import product from './interfaces/product';
+import Product from './interfaces/product';
 
 interface ResponseData {
-  products: product[];
+  products: Product[];
   total: number;
   skip: number;
   limit: number;
@@ -17,7 +17,7 @@ class DataLoader {
     throw Error(res.statusText);
   }
 
-  static fetchProductsData(): Promise<product[]> {
+  static fetchProductsData(): Promise<Product[]> {
     return fetch('https://dummyjson.com/products?limit=100')
       .then((res) => DataLoader.errorHandler(res))
       .then((res) => res.json())
