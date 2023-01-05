@@ -51,7 +51,12 @@ class Router {
 
     switch (path) {
       case '/':
-        MainPageView.draw(filters, Router.setRoute, prevState);
+        MainPageView.draw(
+          filters,
+          Router.setUrlParams,
+          Router.setRoute,
+          prevState,
+        );
         break;
 
       default:

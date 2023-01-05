@@ -1,7 +1,5 @@
 import FiltersObject from './interfaces/filters';
 import Product from './interfaces/product';
-// TODO: снять зацикливание
-import Router from './router';
 
 type FilterKey = 'category' | 'brand' | 'price' | 'stock';
 
@@ -16,7 +14,7 @@ class FiltersHandler {
   private static appliedFilters: FiltersObject = {};
 
   private constructor() {
-    FiltersHandler.setHandlers();
+    // FiltersHandler.setHandlers();
   }
 
   public static get instance() {
@@ -62,7 +60,7 @@ class FiltersHandler {
   }
 
   // TODO: Вынести этот метод из класса
-  public static setHandlers(): void {
+  public static setHandlers(toUrlFunc: (filters: FiltersObject) => void): void {
     const filters = document.querySelector('.filters') as HTMLElement;
     filters.addEventListener('click', (event: Event) => {
       if (event.target instanceof HTMLInputElement) {
@@ -96,7 +94,7 @@ class FiltersHandler {
             rangeInputs[1].value,
           ];
         }
-        Router.setUrlParams(FiltersHandler.appliedFilters);
+        toUrlFunc(FiltersHandler.appliedFilters);
       }
     });
   }

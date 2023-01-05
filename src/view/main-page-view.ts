@@ -7,6 +7,7 @@ import FiltersObject from '../interfaces/filters';
 class MainPageView {
   static draw(
     filters: FiltersObject,
+    toUrlFunc: (filters: FiltersObject) => void,
     linkHandler: (e: Event) => void,
     prevState: unknown,
   ): void {
@@ -28,7 +29,7 @@ class MainPageView {
 
       parentElement.append(container);
       container.append(FiltersView.draw(allProducts), cards);
-      FiltersHandler.setHandlers();
+      FiltersHandler.setHandlers(toUrlFunc);
     }
 
     GridView.draw(products, linkHandler);
