@@ -13,26 +13,12 @@ class FiltersHandler {
 
   private static appliedFilters: FiltersObject = {};
 
-  private constructor() {
-    // FiltersHandler.setHandlers();
-  }
-
-  public static get instance() {
-    if (!this._products)
-      throw new Error('Singleton class must be initialized before!');
-
-    if (!FiltersHandler.handlerInstance)
-      FiltersHandler.handlerInstance = new FiltersHandler();
-    return FiltersHandler.handlerInstance;
-  }
-
   public static get products() {
     return FiltersHandler._products;
   }
 
   public static init(products: Product[]): void {
     FiltersHandler._products = products;
-    // FiltersHandler.setHandlers();
   }
 
   public static handleFilters(filters: FiltersObject): Product[] {
