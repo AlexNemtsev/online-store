@@ -19,7 +19,10 @@ class MainPageView {
       products = allProducts;
     }
 
-    if (prevState === null) {
+    if (
+      prevState === null ||
+      Object.keys(prevState as FiltersObject).length === 0
+    ) {
       const parentElement = document.querySelector('.main') as HTMLElement;
       parentElement.innerHTML = '';
       const container = document.createElement('div');
