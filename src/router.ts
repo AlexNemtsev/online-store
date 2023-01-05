@@ -1,15 +1,12 @@
 import FiltersObject from './interfaces/filters';
 import MainPageView from './view/main-page-view';
+import PageNotFoundView from './view/page-not-found-view';
 
 const productPageDummy = (id: string): void => {
   console.log('details of product', id);
 };
 const cartPageDummy = (): void => {
   console.log('cart page');
-};
-
-const pageNotFoundDummy = (): void => {
-  console.log('404 error');
 };
 
 class Router {
@@ -79,7 +76,7 @@ class Router {
           break;
 
         default:
-          pageNotFoundDummy();
+          PageNotFoundView.draw();
           break;
       }
     }
