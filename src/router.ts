@@ -1,7 +1,7 @@
 import FiltersObject from './interfaces/filters';
 import MainPageView from './view/main-page-view';
 // import PageNotFoundView from './view/page-not-found-view';
-// import ProductPageView from './view/product-view';
+import ProductPageView from './view/product-view';
 
 const productPageDummy = (id: string): void => {
   console.log('details of product', id);
@@ -74,7 +74,9 @@ class Router {
       switch (page) {
         case 'product-details':
           // const productId = Number(path.split('/')[2]);
-          // ProductPageView.fillPageTemplate();
+          ProductPageView.fillPageTemplate(
+            MainPageView.allProducts[Number(path.split('/')[2]) - 1],
+          );
           break;
 
         case 'cart':
