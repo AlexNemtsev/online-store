@@ -5,6 +5,14 @@ import FiltersHandler from '../filters-handler';
 import FiltersObject from '../interfaces/filters';
 
 class MainPageView {
+  private static noProductsFound(): void {
+    const cards = document.querySelector('.cards') as HTMLElement;
+    cards.innerHTML = '';
+    const header = document.createElement('h1');
+    header.textContent = 'No products Found';
+    cards.append(header);
+  }
+
   static draw(
     filters: FiltersObject,
     toUrlFunc: (filters: FiltersObject) => void,
@@ -35,7 +43,8 @@ class MainPageView {
       FiltersHandler.setHandlers(toUrlFunc);
     }
 
-    GridView.draw(products, linkHandler);
+    if (products.length) GridView.draw(products, linkHandler);
+    else MainPageView.noProductsFound();
   }
 }
 
