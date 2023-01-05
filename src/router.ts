@@ -1,6 +1,17 @@
 import FiltersObject from './interfaces/filters';
 import MainPageView from './view/main-page-view';
 
+const productPageDummy = (id: string): void => {
+  console.log('details of product', id);
+};
+const cartPageDummy = (): void => {
+  console.log('cart page');
+};
+
+const pageNotFoundDummy = (): void => {
+  console.log('404 error');
+};
+
 class Router {
   static setRoute = (e: Event): void => {
     const event: Event = e || window.event;
@@ -49,18 +60,28 @@ class Router {
     const filters = Router.transformUrlParams(window.location.search);
     const prevState: unknown = window.history.state;
 
-    switch (path) {
-      case '/':
-        MainPageView.draw(
-          filters,
-          Router.setUrlParams,
-          Router.setRoute,
-          prevState,
-        );
-        break;
+    if (path === '/') {
+      MainPageView.draw(
+        filters,
+        Router.setUrlParams,
+        Router.setRoute,
+        prevState,
+      );
+    } else {
+      const page: string = path.split('/')[1];
+      switch (page) {
+        case 'product-details':
+          productPageDummy(path.split('/')[2]);
+          break;
 
-      default:
-        break;
+        case 'cart':
+          cartPageDummy();
+          break;
+
+        default:
+          pageNotFoundDummy();
+          break;
+      }
     }
   }
 }
