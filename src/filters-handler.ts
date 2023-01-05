@@ -6,23 +6,15 @@ type FilterKey = 'category' | 'brand' | 'price' | 'stock';
 class FiltersHandler {
   private static handlerInstance: FiltersHandler;
 
-  // TODO: перенести это поле из класса
-  private static _products: Product[];
-
   private static checkboxFilters = ['category', 'brand'];
 
   private static appliedFilters: FiltersObject = {};
 
-  public static get products() {
-    return FiltersHandler._products;
-  }
-
-  public static init(products: Product[]): void {
-    FiltersHandler._products = products;
-  }
-
-  public static handleFilters(filters: FiltersObject): Product[] {
-    let filteredProducts: Product[] = FiltersHandler._products;
+  public static handleFilters(
+    products: Product[],
+    filters: FiltersObject,
+  ): Product[] {
+    let filteredProducts: Product[] = products;
     const filterArray: Array<[string, Array<string | number>]> = Object.entries(
       filters,
     );

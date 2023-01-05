@@ -5,21 +5,28 @@ import FiltersHandler from '../filters-handler';
 import FiltersObject from '../interfaces/filters';
 
 class MainPageView {
+  static allProducts: Product[];
+
   static draw(
     filters: FiltersObject,
     toUrlFunc: (filters: FiltersObject) => void,
     linkHandler: (e: Event) => void,
     prevState: unknown,
   ): void {
-    const allProducts: Product[] = FiltersHandler.products;
     let products: Product[];
     if (Object.keys(filters).length !== 0) {
-      products = FiltersHandler.handleFilters(filters);
+      products = FiltersHandler.handleFilters(
+        MainPageView.allProducts,
+        filters,
+      );
     } else {
-      products = allProducts;
+      products = MainPageView.allProducts;
     }
 
-    if (prevState === null) {
+    if (
+      prevState === null ||
+      Object.keys(prevState as FiltersObject).length === 0
+    ) {
       const parentElement = document.querySelector('.main') as HTMLElement;
       parentElement.innerHTML = '';
       const container = document.createElement('div');
@@ -28,7 +35,7 @@ class MainPageView {
       cards.classList.add('cards');
 
       parentElement.append(container);
-      container.append(FiltersView.draw(allProducts), cards);
+      container.append(FiltersView.draw(MainPageView.allProducts), cards);
       FiltersHandler.setHandlers(toUrlFunc);
     }
 
