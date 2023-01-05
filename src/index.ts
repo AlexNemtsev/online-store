@@ -3,8 +3,7 @@ import './style.scss';
 import Router from './router';
 
 import DataLoader from './data-loader';
-import FiltersHandler from './filters-handler';
-import SortHandler from './sort-handler';
+import MainPageView from './view/main-page-view';
 
 const logoLink = document.getElementById('logo-link');
 logoLink?.addEventListener('click', (event) => Router.setRoute(event));
@@ -14,9 +13,8 @@ cartLink?.addEventListener('click', (event) => Router.setRoute(event));
 
 DataLoader.fetchProductsData()
   .then((products) => {
-    FiltersHandler.init(products);
+    MainPageView.init(products);
     Router.handleLocation();
-    const sortHandler = new SortHandler(products);
   })
   .catch((error) => console.log(error));
 

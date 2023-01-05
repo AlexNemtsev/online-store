@@ -24,7 +24,7 @@ class Router {
 
   private static transformToUrlParams(filters: FiltersObject): string {
     const query: string = Object.entries(filters)
-      .map(([key, values]) => `${key}=${values.join('|')}`)
+      .map(([key, values]) => `${key}=${values.join(';')}`)
       .join('&');
 
     return `?${query}`;
@@ -37,7 +37,7 @@ class Router {
       const params: string = urlParams.substring(1);
       params.split('&').forEach((filterString) => {
         const [key, values] = filterString.split('=');
-        filters[key] = values?.split('|');
+        filters[key] = values?.split(';');
       });
     }
 
