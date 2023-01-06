@@ -55,15 +55,9 @@ class Router {
   static handleLocation(): void {
     const path: string = window.location.pathname;
     const filters = Router.transformUrlParams(window.location.search);
-    const prevState: unknown = window.history.state;
 
     if (path === '/') {
-      MainPageView.draw(
-        filters,
-        Router.setUrlParams,
-        Router.setRoute,
-        prevState,
-      );
+      MainPageView.draw(filters, Router.setUrlParams, Router.setRoute);
     } else {
       const page: string = path.split('/')[1];
       switch (page) {

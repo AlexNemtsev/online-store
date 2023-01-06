@@ -31,7 +31,6 @@ class MainPageView {
     filters: FiltersObject,
     queryHandler: (filters: FiltersObject) => void,
     linkHandler: (e: Event) => void,
-    prevState: unknown,
   ): void {
     const parentElement = document.querySelector('.main') as HTMLElement;
     parentElement.innerHTML = '';
