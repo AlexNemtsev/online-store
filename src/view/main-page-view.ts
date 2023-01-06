@@ -9,7 +9,6 @@ import ProductsBarView from './products-bar-view';
 import Builder from '../builder';
 
 class MainPageView {
-  
   private static _allProducts: Product[];
 
   public static get allProducts() {
@@ -20,7 +19,12 @@ class MainPageView {
     MainPageView._allProducts = products;
   }
 
-  static draw(filters: FiltersObject, linkHandler: (e: Event) => void): void {
+  static draw(
+    filters: FiltersObject,
+    queryHandler: (filters: FiltersObject) => void,
+    linkHandler: (e: Event) => void,
+    prevState: unknown,
+  ): void {
     if (
       prevState === null ||
       Object.keys(prevState as FiltersObject).length === 0
@@ -32,16 +36,25 @@ class MainPageView {
       const productsBlock = Builder.createBlock('div', ['products']);
 
       parentElement.append(container);
-      container.append(FiltersView.draw(MainPageView.allProducts), productsBlock);
+      container.append(
+        FiltersView.draw(MainPageView.allProducts),
+        productsBlock,
+      );
       productsBlock.append(ProductsBarView.draw(), cards);
       FiltersListener.appliedFilters = filters;
-      FiltersListener.setListeners();
-
+      FiltersListener.setListeners(queryHandler);
     }
 
     let productsForRendering: Product[];
-    productsForRendering = FiltersHandler.handleFilters(filters, MainPageView.allProducts);
-    if (Object.keys(filters).includes('sort')) productsForRendering = SortHandler.handleSort(filters, productsForRendering);
+    productsForRendering = FiltersHandler.handleFilters(
+      filters,
+      MainPageView.allProducts,
+    );
+    if (Object.keys(filters).includes('sort'))
+      productsForRendering = SortHandler.handleSort(
+        filters,
+        productsForRendering,
+      );
     GridView.draw(productsForRendering, linkHandler);
   }
 }

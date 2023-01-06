@@ -1,21 +1,25 @@
 import FiltersObject from './interfaces/filters';
-import Router from './router';
 
 class FiltersListener {
   public static appliedFilters: FiltersObject = {};
 
-  public static setListeners() {
-    FiltersListener.addCheckboxListener();
-    FiltersListener.addRangeListener();
-    FiltersListener.addSortListener();
+  public static setListeners(queryHandler: (filters: FiltersObject) => void) {
+    FiltersListener.addCheckboxListener(queryHandler);
+    FiltersListener.addRangeListener(queryHandler);
+    FiltersListener.addSortListener(queryHandler);
   }
 
-  private static addCheckboxListener(): void {
-    const checkboxFilters = document.querySelector('.filters__checkboxes') as HTMLElement;
+  private static addCheckboxListener(
+    queryHandler: (filters: FiltersObject) => void,
+  ): void {
+    const checkboxFilters = document.querySelector(
+      '.filters__checkboxes',
+    ) as HTMLElement;
     checkboxFilters.addEventListener('click', (event: Event) => {
       event.preventDefault();
       if (event.target instanceof HTMLLabelElement) {
-        const checkboxInput = event.target.previousElementSibling as HTMLInputElement;
+        const checkboxInput = event.target
+          .previousElementSibling as HTMLInputElement;
         const parameter = checkboxInput.parentElement?.parentElement?.previousElementSibling?.textContent?.toLowerCase() as string;
         if (!checkboxInput.checked) {
           if (
@@ -37,12 +41,16 @@ class FiltersListener {
             delete FiltersListener.appliedFilters[parameter];
         }
       }
-      Router.setUrlParams(FiltersListener.appliedFilters);
+      queryHandler(FiltersListener.appliedFilters);
     });
   }
 
-  private static addRangeListener(): void {
-    const rangeFilters = document.querySelector('.filters__ranges') as HTMLElement;
+  private static addRangeListener(
+    queryHandler: (filters: FiltersObject) => void,
+  ): void {
+    const rangeFilters = document.querySelector(
+      '.filters__ranges',
+    ) as HTMLElement;
     rangeFilters.addEventListener('click', (event: Event) => {
       if (event.target instanceof HTMLInputElement) {
         const parameter = event.target.parentElement?.parentElement?.previousElementSibling?.textContent?.toLowerCase() as string;
@@ -53,18 +61,20 @@ class FiltersListener {
           rangeInputs[0].value,
           rangeInputs[1].value,
         ];
-        Router.setUrlParams(FiltersListener.appliedFilters);
+        queryHandler(FiltersListener.appliedFilters);
       }
     });
   }
 
-  private static addSortListener(): void {
+  private static addSortListener(
+    queryHandler: (filters: FiltersObject) => void,
+  ): void {
     const sortSelect = document.querySelector('.sort') as HTMLSelectElement;
     sortSelect.addEventListener('change', () => {
       const selectedOption = sortSelect.options[sortSelect.selectedIndex].value;
       sortSelect.selectedIndex = 0;
       FiltersListener.appliedFilters.sort = [selectedOption];
-      Router.setUrlParams(FiltersListener.appliedFilters);
+      queryHandler(FiltersListener.appliedFilters);
     });
   }
 }
