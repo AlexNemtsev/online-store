@@ -33,25 +33,17 @@ class MainPageView {
     linkHandler: (e: Event) => void,
     prevState: unknown,
   ): void {
-    if (
-      prevState === null ||
-      Object.keys(prevState as FiltersObject).length === 0
-    ) {
-      const parentElement = document.querySelector('.main') as HTMLElement;
-      parentElement.innerHTML = '';
-      const container = Builder.createBlock('div', ['main-page', 'container']);
-      const cards = Builder.createBlock('div', ['cards']);
-      const productsBlock = Builder.createBlock('div', ['products']);
+    const parentElement = document.querySelector('.main') as HTMLElement;
+    parentElement.innerHTML = '';
+    const container = Builder.createBlock('div', ['main-page', 'container']);
+    const cards = Builder.createBlock('div', ['cards']);
+    const productsBlock = Builder.createBlock('div', ['products']);
 
-      parentElement.append(container);
-      container.append(
-        FiltersView.draw(MainPageView.allProducts),
-        productsBlock,
-      );
-      productsBlock.append(ProductsBarView.draw(), cards);
-      FiltersListener.appliedFilters = filters;
-      FiltersListener.setListeners(queryHandler);
-    }
+    parentElement.append(container);
+    container.append(FiltersView.draw(MainPageView.allProducts), productsBlock);
+    productsBlock.append(ProductsBarView.draw(), cards);
+    FiltersListener.appliedFilters = filters;
+    FiltersListener.setListeners(queryHandler);
 
     let productsForRendering: Product[];
     productsForRendering = FiltersHandler.handleFilters(
