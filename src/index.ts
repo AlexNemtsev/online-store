@@ -12,7 +12,7 @@ cartLink?.addEventListener('click', (event) => Router.setRoute(event));
 
 DataLoader.fetchProductsData()
   .then((products) => {
-    MainPageView.allProducts = products;
+    MainPageView.init(products);
     Router.handleLocation();
   })
   .catch((error) => console.log(error));

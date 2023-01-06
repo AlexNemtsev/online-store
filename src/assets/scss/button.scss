@@ -1,4 +1,6 @@
 .button {
+  box-sizing: border-box;
+  min-height: 28px;
   padding: 5px 15px;
   font-family: inherit;
   font-size: 14px;

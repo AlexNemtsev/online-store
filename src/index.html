@@ -96,41 +96,45 @@
         <button class="button">Reset Filters</button>
         <button class="button">Copy Link</button>
       </div>
-      <div class="filters__group">
-        <h3 class="filters__title">Category</h3>
-        <ul class="filters__list"></ul>
-      </div>
-      <div class="filters__group">
-        <h3 class="filters__title">Brand</h3>
-        <ul class="filters__list"></ul>
-      </div>
-      <div class="filters__group">
-        <h3 class="filters__title">Price</h3>
-        <div class="filters__range range">
-          <div class="range__numbers">
-            <span class="range__from"></span>
-            <span class="range__arrow">⟷</span>
-            <span class="range__to"></span>
-          </div>
-          <div class="range__inputs">
-            <div class="range__bar"></div>
-            <input class="range__input" type="range" min="" max="">
-            <input class="range__input" type="range" min="" max="">
-          </div>
+      <div class="filters__checkboxes">
+        <div class="filters__group">
+          <h3 class="filters__title">Category</h3>
+          <ul class="filters__list"></ul>
+        </div>
+        <div class="filters__group">
+          <h3 class="filters__title">Brand</h3>
+          <ul class="filters__list"></ul>
         </div>
       </div>
-      <div class="filters__group">
-        <h3 class="filters__title">Stock</h3>
-        <div class="filters__range range">
-          <div class="range__numbers">
-            <span class="range__from"></span>
-            <span class="range__arrow">⟷</span>
-            <span class="range__to"></span>
+      <div class="filters__ranges">
+        <div class="filters__group">
+          <h3 class="filters__title">Price</h3>
+          <div class="filters__range range">
+            <div class="range__numbers">
+              <span class="range__from"></span>
+              <span class="range__arrow">⟷</span>
+              <span class="range__to"></span>
+            </div>
+            <div class="range__inputs">
+              <div class="range__bar"></div>
+              <input class="range__input" data-filter="price" type="range" min="" max="">
+              <input class="range__input" data-filter="price" type="range" min="" max="">
+            </div>
           </div>
-          <div class="range__inputs">
-            <div class="range__bar"></div>
-            <input class="range__input" type="range" min="" max="">
-            <input class="range__input" type="range" min="" max="">
+        </div>
+        <div class="filters__group">
+          <h3 class="filters__title">Stock</h3>
+          <div class="filters__range range">
+            <div class="range__numbers">
+              <span class="range__from"></span>
+              <span class="range__arrow">⟷</span>
+              <span class="range__to"></span>
+            </div>
+            <div class="range__inputs">
+              <div class="range__bar"></div>
+              <input class="range__input" data-filter="stock" type="range" min="" max="">
+              <input class="range__input" data-filter="stock" type="range" min="" max="">
+            </div>
           </div>
         </div>
       </div>
@@ -143,6 +147,19 @@
       <label class="checkbox__label" for=""></label>
       <span class="checkbox__amount"></span>
     </li>
+  </template>
+
+  <template id="products-bar-template">
+    <div class="products__bar">
+      <select class="sort">
+        <option class="sort__option" value="price-ASC">Sort by price ↓</option>
+        <option class="sort__option" value="price-DESC">Sort by price ↑</option>
+        <option class="sort__option" value="rating-ASC">Sort by rating ↓</option>
+        <option class="sort__option" value="rating-DESC">Sort by rating ↑</option>
+        <option class="sort__option" value="discountPercentage-ASC">Sort by discount ↓</option>
+        <option class="sort__option" value="discountPercentage-DESC">Sort by discount ↑</option>
+      </select>
+    </div>
   </template>
 </body>
 
