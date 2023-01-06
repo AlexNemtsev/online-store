@@ -15,8 +15,17 @@ class MainPageView {
     return MainPageView._allProducts;
   }
 
-  private static copyLinkHandler(): void {
-    navigator.clipboard.writeText(window.location.href).catch(() => {});
+  private static copyLinkHandler(e: Event): void {
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        const btn = e.target as HTMLButtonElement;
+        btn.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.textContent = 'Copy link';
+        }, 500);
+      })
+      .catch(() => {});
   }
 
   private static noProductsFound(): void {
