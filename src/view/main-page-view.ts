@@ -15,6 +15,14 @@ class MainPageView {
     return MainPageView._allProducts;
   }
 
+  private static noProductsFound(): void {
+    const cards = document.querySelector('.cards') as HTMLElement;
+    cards.innerHTML = '';
+    const header = document.createElement('h1');
+    header.textContent = 'No products Found';
+    cards.append(header);
+  }
+
   public static init(products: Product[]): void {
     MainPageView._allProducts = products;
   }
@@ -55,7 +63,10 @@ class MainPageView {
         filters,
         productsForRendering,
       );
-    GridView.draw(productsForRendering, linkHandler);
+
+    if (productsForRendering.length)
+      GridView.draw(productsForRendering, linkHandler);
+    else MainPageView.noProductsFound();
   }
 }
 
