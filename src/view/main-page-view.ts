@@ -16,6 +16,23 @@ class MainPageView {
     return MainPageView._allProducts;
   }
 
+  private static copyLinkHandler(e: Event): void {
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        const btn = e.target as HTMLButtonElement;
+        btn.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.textContent = 'Copy link';
+        }, 500);
+      })
+      .catch(() => {});
+  }
+
+  // private static resetFiltersHandler(): void {
+
+  // }
+
   private static noProductsFound(): void {
     const cards = document.querySelector('.cards') as HTMLElement;
     cards.innerHTML = '';
@@ -64,6 +81,12 @@ class MainPageView {
     if (productsForRendering.length)
       GridView.draw(productsForRendering, linkHandler);
     else MainPageView.noProductsFound();
+
+    const copyLinkBtn = document.querySelector('#copy-link-btn');
+    copyLinkBtn?.addEventListener('click', MainPageView.copyLinkHandler);
+
+    const resetFiltersBtn = document.querySelector('#reset-filters-btn');
+    resetFiltersBtn?.addEventListener('click', () => queryHandler({}));
   }
 }
 
