@@ -9,7 +9,7 @@ class FiltersHandler {
   private static checkboxFilters = ['category', 'brand'];
   
   private static rangeFilters = ['price', 'stock'];
-
+  
   private static filterKeys = [...FiltersHandler.checkboxFilters, ...FiltersHandler.rangeFilters];
 
   public static get instance() {

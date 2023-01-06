@@ -9,7 +9,6 @@ import ProductsBarView from './products-bar-view';
 import Builder from '../builder';
 
 class MainPageView {
-  private static isFiltersShown = false;
   
   private static _allProducts: Product[];
 
@@ -22,7 +21,10 @@ class MainPageView {
   }
 
   static draw(filters: FiltersObject, linkHandler: (e: Event) => void): void {
-    if (!MainPageView.isFiltersShown) {
+    if (
+      prevState === null ||
+      Object.keys(prevState as FiltersObject).length === 0
+    ) {
       const parentElement = document.querySelector('.main') as HTMLElement;
       parentElement.innerHTML = '';
       const container = Builder.createBlock('div', ['main-page', 'container']);
@@ -35,7 +37,6 @@ class MainPageView {
       FiltersListener.appliedFilters = filters;
       FiltersListener.setListeners();
 
-      MainPageView.isFiltersShown = true;
     }
 
     let productsForRendering: Product[];
