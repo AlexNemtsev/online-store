@@ -5,9 +5,6 @@ import PageNotFoundView from './view/page-not-found-view';
 // import ProductPageView from './view/product-view';
 // import PageNotFoundView from './view/page-not-found-view';
 
-const productPageDummy = (id: string): void => {
-  console.log('details of product', id);
-};
 const cartPageDummy = (): void => {
   console.log('cart page');
 };

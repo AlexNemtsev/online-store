@@ -1,4 +1,5 @@
 import Product from '../interfaces/product';
+import PageNotFoundView from './page-not-found-view';
 
 class ProductPageView {
   private static fillTextElements(
@@ -56,54 +57,57 @@ class ProductPageView {
   }
 
   static fillPageTemplate(item: Product): void {
-    const template = document.getElementById(
-      'product-page-template',
-    ) as HTMLTemplateElement;
-    const productPage = template.content.cloneNode(true) as HTMLElement;
+    if (!item) PageNotFoundView.draw();
+    else {
+      const template = document.getElementById(
+        'product-page-template',
+      ) as HTMLTemplateElement;
+      const productPage = template.content.cloneNode(true) as HTMLElement;
 
-    const breadcrumbs: Element[] = [
-      ...productPage.querySelectorAll('.breadcrumbs__item'),
-    ].slice(1);
-    const productTitle = productPage.querySelector(
-      '.product__title',
-    ) as Element;
-    const productProps: Element[] = [
-      ...productPage.querySelectorAll('.product__property span'),
-    ];
-    const productPrice = productPage.querySelector(
-      '.product__price span',
-    ) as Element;
-    ProductPageView.fillTextElements(
-      [...breadcrumbs, productTitle, ...productProps, productPrice],
-      [
-        item.category,
-        item.brand,
-        item.title,
-        item.title,
-        item.description,
-        item.category,
-        item.brand,
-        item.rating,
-        item.stock,
-        item.discountPercentage,
-        item.price,
-      ],
-    );
+      const breadcrumbs: Element[] = [
+        ...productPage.querySelectorAll('.breadcrumbs__item'),
+      ].slice(1);
+      const productTitle = productPage.querySelector(
+        '.product__title',
+      ) as Element;
+      const productProps: Element[] = [
+        ...productPage.querySelectorAll('.product__property span'),
+      ];
+      const productPrice = productPage.querySelector(
+        '.product__price span',
+      ) as Element;
+      ProductPageView.fillTextElements(
+        [...breadcrumbs, productTitle, ...productProps, productPrice],
+        [
+          item.category,
+          item.brand,
+          item.title,
+          item.title,
+          item.description,
+          item.category,
+          item.brand,
+          item.rating,
+          item.stock,
+          item.discountPercentage,
+          item.price,
+        ],
+      );
 
-    ProductPageView.fillImages(
-      productPage,
-      '.product__images-list',
-      '.product__image--main',
-      item,
-    );
+      ProductPageView.fillImages(
+        productPage,
+        '.product__images-list',
+        '.product__image--main',
+        item,
+      );
 
-    const mainElement = document.querySelector('.main') as HTMLElement;
+      const mainElement = document.querySelector('.main') as HTMLElement;
 
-    if (mainElement.children.length) {
-      mainElement.children[0].remove();
+      if (mainElement.children.length) {
+        mainElement.children[0].remove();
+      }
+
+      mainElement.append(productPage);
     }
-
-    mainElement.append(productPage);
   }
 }
 
