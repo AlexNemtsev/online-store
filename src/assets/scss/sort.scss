@@ -1,0 +1,17 @@
+.sort {
+  box-sizing: border-box; 
+  padding: 4px 10px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: $green;
+  border: 0;
+  cursor: pointer;
+}
+
+.sort__option {
+  color: $black;
+  text-transform: none;
+} 

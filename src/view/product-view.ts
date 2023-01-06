@@ -55,7 +55,7 @@ class ProductPageView {
     ProductPageView.setImageClickHandler(productImagesList, productMainImage);
   }
 
-  static fillPageTemplate(item: Product): HTMLElement {
+  static fillPageTemplate(item: Product): void {
     const template = document.getElementById(
       'product-page-template',
     ) as HTMLTemplateElement;
@@ -97,7 +97,13 @@ class ProductPageView {
       item,
     );
 
-    return productPage;
+    const mainElement = document.querySelector('.main') as HTMLElement;
+
+    if (mainElement.children.length) {
+      mainElement.children[0].remove();
+    }
+
+    mainElement.append(productPage);
   }
 }
 

@@ -1,6 +1,7 @@
 import FiltersObject from './interfaces/filters';
 import MainPageView from './view/main-page-view';
 import PageNotFoundView from './view/page-not-found-view';
+// import ProductPageView from './view/product-view';
 
 const productPageDummy = (id: string): void => {
   console.log('details of product', id);
@@ -32,7 +33,7 @@ class Router {
 
   private static transformToUrlParams(filters: FiltersObject): string {
     const query: string = Object.entries(filters)
-      .map(([key, values]) => `${key}=${values.join('|')}`)
+      .map(([key, values]) => `${key}=${values.join(';')}`)
       .join('&');
 
     return `?${query}`;
@@ -45,7 +46,7 @@ class Router {
       const params: string = urlParams.substring(1);
       params.split('&').forEach((filterString) => {
         const [key, values] = filterString.split('=');
-        filters[key] = values?.split('|');
+        filters[key] = values?.split(';');
       });
     }
 
@@ -68,7 +69,8 @@ class Router {
       const page: string = path.split('/')[1];
       switch (page) {
         case 'product-details':
-          productPageDummy(path.split('/')[2]);
+          // const productId = Number(path.split('/')[2]);
+          // ProductPageView.fillPageTemplate();
           break;
 
         case 'cart':
