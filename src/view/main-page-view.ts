@@ -15,6 +15,10 @@ class MainPageView {
     return MainPageView._allProducts;
   }
 
+  private static copyLinkHandler(): void {
+    navigator.clipboard.writeText(window.location.href).catch(() => {});
+  }
+
   private static noProductsFound(): void {
     const cards = document.querySelector('.cards') as HTMLElement;
     cards.innerHTML = '';
@@ -58,6 +62,9 @@ class MainPageView {
     if (productsForRendering.length)
       GridView.draw(productsForRendering, linkHandler);
     else MainPageView.noProductsFound();
+
+    const copyLinkBtn = document.querySelector('#copy-link-btn');
+    copyLinkBtn?.addEventListener('click', MainPageView.copyLinkHandler);
   }
 }
 
