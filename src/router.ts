@@ -1,17 +1,15 @@
 import FiltersObject from './interfaces/filters';
 import MainPageView from './view/main-page-view';
-// import PageNotFoundView from './view/page-not-found-view';
 import ProductPageView from './view/product-view';
+import PageNotFoundView from './view/page-not-found-view';
+// import ProductPageView from './view/product-view';
+// import PageNotFoundView from './view/page-not-found-view';
 
 const productPageDummy = (id: string): void => {
   console.log('details of product', id);
 };
 const cartPageDummy = (): void => {
   console.log('cart page');
-};
-
-const pageNotFoundDummy = (): void => {
-  console.log('404 error');
 };
 
 class Router {
@@ -37,7 +35,7 @@ class Router {
 
   private static transformToUrlParams(filters: FiltersObject): string {
     const query: string = Object.entries(filters)
-      .map(([key, values]) => `${key}=${values.join('|')}`)
+      .map(([key, values]) => `${key}=${values.join(';')}`)
       .join('&');
 
     return `?${query}`;
@@ -50,7 +48,7 @@ class Router {
       const params: string = urlParams.substring(1);
       params.split('&').forEach((filterString) => {
         const [key, values] = filterString.split('=');
-        filters[key] = values?.split('|');
+        filters[key] = values?.split(';');
       });
     }
 
@@ -84,7 +82,7 @@ class Router {
           break;
 
         default:
-          pageNotFoundDummy();
+          PageNotFoundView.draw();
           break;
       }
     }
