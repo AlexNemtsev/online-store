@@ -28,6 +28,10 @@ class MainPageView {
       .catch(() => {});
   }
 
+  // private static resetFiltersHandler(): void {
+
+  // }
+
   private static noProductsFound(): void {
     const cards = document.querySelector('.cards') as HTMLElement;
     cards.innerHTML = '';
@@ -74,6 +78,9 @@ class MainPageView {
 
     const copyLinkBtn = document.querySelector('#copy-link-btn');
     copyLinkBtn?.addEventListener('click', MainPageView.copyLinkHandler);
+
+    const resetFiltersBtn = document.querySelector('#reset-filters-btn');
+    resetFiltersBtn?.addEventListener('click', () => queryHandler({}));
   }
 }
 
