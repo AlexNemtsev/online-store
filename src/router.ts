@@ -34,15 +34,14 @@ class Router {
     const query: string = Object.entries(filters)
       .map(([key, values]) => `${key}=${values.join(';')}`)
       .join('&');
-
-    return `?${query}`;
+    return `?${encodeURIComponent(query)}`;
   }
 
   private static transformUrlParams(urlParams: string): FiltersObject {
     const filters: FiltersObject = {};
 
     if (urlParams) {
-      const params: string = urlParams.substring(1);
+      const params: string = decodeURIComponent(urlParams).substring(1);
       params.split('&').forEach((filterString) => {
         const [key, values] = filterString.split('=');
         filters[key] = values?.split(';');

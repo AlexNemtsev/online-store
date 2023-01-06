@@ -7,6 +7,7 @@ class FiltersListener {
     FiltersListener.addCheckboxListener(queryHandler);
     FiltersListener.addRangeListener(queryHandler);
     FiltersListener.addSortListener(queryHandler);
+    FiltersListener.addSearchListener(queryHandler);
   }
 
   private static addCheckboxListener(
@@ -74,6 +75,21 @@ class FiltersListener {
       const selectedOption = sortSelect.options[sortSelect.selectedIndex].value;
       sortSelect.selectedIndex = 0;
       FiltersListener.appliedFilters.sort = [selectedOption];
+      queryHandler(FiltersListener.appliedFilters);
+    });
+  }
+
+  private static addSearchListener(
+    queryHandler: (filters: FiltersObject) => void,
+  ): void {
+    const searchInput = document.querySelector('.search') as HTMLInputElement;
+    searchInput.addEventListener('input', () => {
+      const searchQuery = searchInput.value;
+      if (searchQuery.length > 0) {
+        FiltersListener.appliedFilters.search = [searchQuery];
+      } else {
+        delete FiltersListener.appliedFilters.search; 
+      }
       queryHandler(FiltersListener.appliedFilters);
     });
   }
