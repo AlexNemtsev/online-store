@@ -1,6 +1,6 @@
 import FiltersObject from './interfaces/filters';
 import MainPageView from './view/main-page-view';
-// import PageNotFoundView from './view/page-not-found-view';
+import PageNotFoundView from './view/page-not-found-view';
 // import ProductPageView from './view/product-view';
 
 const productPageDummy = (id: string): void => {
@@ -8,10 +8,6 @@ const productPageDummy = (id: string): void => {
 };
 const cartPageDummy = (): void => {
   console.log('cart page');
-};
-
-const pageNotFoundDummy = (): void => {
-  console.log('404 error');
 };
 
 class Router {
@@ -82,7 +78,7 @@ class Router {
           break;
 
         default:
-          pageNotFoundDummy();
+          PageNotFoundView.draw();
           break;
       }
     }
