@@ -100,12 +100,18 @@ class MainPageView {
   }
 
   private static handleGridOption(cards: HTMLElement, option: string): void {
+    const gridButtons: Element[] = [...document.querySelectorAll('.products__grid-button')];
+
     if (option === 'column') {
+      gridButtons[0].classList.remove('products__grid-button--active');
+      gridButtons[1].classList.add('products__grid-button--active');
       if (!cards.classList.contains('cards--column')) {
         cards.classList.add('cards--column');
       }
     }
     if (option === 'matrix') {
+      gridButtons[1].classList.remove('products__grid-button--active');
+      gridButtons[0].classList.add('products__grid-button--active');
       if (cards.classList.contains('cards--column')) {
         cards.classList.remove('cards--column');
       }
