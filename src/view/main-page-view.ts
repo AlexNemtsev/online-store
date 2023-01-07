@@ -81,6 +81,7 @@ class MainPageView {
     if (productsForRendering.length)
       GridView.draw(productsForRendering, linkHandler);
     else MainPageView.noProductsFound();
+    ProductsBarView.updateProductsCount(productsForRendering.length);
 
     const copyLinkBtn = document.querySelector('#copy-link-btn');
     copyLinkBtn?.addEventListener('click', MainPageView.copyLinkHandler);
