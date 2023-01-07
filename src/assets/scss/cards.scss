@@ -16,7 +16,6 @@
   min-height: 253px;
   box-shadow: 0 0 15px 3px rgb(0 0 0 / 35%);
   overflow: hidden;
-  cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
@@ -84,6 +83,7 @@
 .cards--column .card__image {
   grid-area: image;
   position: relative;
+  max-height: 255px;
 }
 
 .card__buttons {

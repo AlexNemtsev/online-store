@@ -8,6 +8,7 @@ class FiltersListener {
     FiltersListener.addRangeListener(queryHandler);
     FiltersListener.addSortListener(queryHandler);
     FiltersListener.addSearchListener(queryHandler);
+    FiltersListener.addGridListener(queryHandler);
   }
 
   private static addCheckboxListener(
@@ -89,6 +90,23 @@ class FiltersListener {
         FiltersListener.appliedFilters.search = [searchQuery];
       } else {
         delete FiltersListener.appliedFilters.search; 
+      }
+      queryHandler(FiltersListener.appliedFilters);
+    });
+  }
+
+  private static addGridListener(
+    queryHandler: (filters: FiltersObject) => void,
+  ): void {
+    const gridButtons = document.querySelector('.products__grid-buttons') as HTMLElement;
+    gridButtons.addEventListener('click', (event) => {
+      if (event.target instanceof HTMLButtonElement) {
+        if (event.target.classList.contains('products__grid-button--matrix')) {
+          FiltersListener.appliedFilters.grid = ['matrix'];
+        }
+        if (event.target.classList.contains('products__grid-button--column')) {
+          FiltersListener.appliedFilters.grid = ['column'];
+        }
       }
       queryHandler(FiltersListener.appliedFilters);
     });
