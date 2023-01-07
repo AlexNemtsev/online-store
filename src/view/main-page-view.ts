@@ -62,6 +62,20 @@ class MainPageView {
     FiltersListener.appliedFilters = filters;
     FiltersListener.setListeners(queryHandler);
 
+    const productsForRendering: Product[] = MainPageView.runFilters(cards, filters);
+    if (productsForRendering.length)
+      GridView.draw(productsForRendering, linkHandler);
+    else MainPageView.noProductsFound();
+    ProductsBarView.updateProductsCount(productsForRendering.length);
+
+    const copyLinkBtn = document.querySelector('#copy-link-btn');
+    copyLinkBtn?.addEventListener('click', MainPageView.copyLinkHandler);
+
+    const resetFiltersBtn = document.querySelector('#reset-filters-btn');
+    resetFiltersBtn?.addEventListener('click', () => queryHandler({}));
+  }
+
+  private static runFilters(cards: HTMLElement, filters: FiltersObject): Product[] {
     let productsForRendering: Product[];
     productsForRendering = FiltersHandler.handleFilters(
       filters,
@@ -78,29 +92,24 @@ class MainPageView {
         productsForRendering,
       );
     if (Object.keys(filters).includes('grid')) {
-      const [gridOption] = [...filters.grid];
-      if (gridOption === 'column') {
-        if (!cards.classList.contains('cards--column')) {
-          cards.classList.add('cards--column');
-        }
+      const [gridOption]: (string | number)[] = [...filters.grid];
+      MainPageView.handleGridOption(cards, gridOption.toString());
+    }
+
+    return productsForRendering;
+  }
+
+  private static handleGridOption(cards: HTMLElement, option: string): void {
+    if (option === 'column') {
+      if (!cards.classList.contains('cards--column')) {
+        cards.classList.add('cards--column');
       }
-      if (gridOption === 'matrix') {
-        if (cards.classList.contains('cards--column')) {
-          cards.classList.remove('cards--column');
-        }
+    }
+    if (option === 'matrix') {
+      if (cards.classList.contains('cards--column')) {
+        cards.classList.remove('cards--column');
       }
-    } 
-
-    if (productsForRendering.length)
-      GridView.draw(productsForRendering, linkHandler);
-    else MainPageView.noProductsFound();
-    ProductsBarView.updateProductsCount(productsForRendering.length);
-
-    const copyLinkBtn = document.querySelector('#copy-link-btn');
-    copyLinkBtn?.addEventListener('click', MainPageView.copyLinkHandler);
-
-    const resetFiltersBtn = document.querySelector('#reset-filters-btn');
-    resetFiltersBtn?.addEventListener('click', () => queryHandler({}));
+    }
   }
 }
 
