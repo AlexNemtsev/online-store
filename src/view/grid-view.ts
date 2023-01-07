@@ -23,7 +23,7 @@ class GridView {
       item.brand;
     (cardList.children[2].querySelector(
       'span',
-    ) as Element).textContent = `${item.price}`;
+    ) as Element).textContent = `€${item.price}`;
     (cardList.children[3].querySelector(
       'span',
     ) as Element).textContent = `${item.discountPercentage}`;
