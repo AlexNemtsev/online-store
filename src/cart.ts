@@ -70,7 +70,8 @@ class Cart {
   }
 
   public static loadCart(): void {
-    Cart.cart = (JSON.parse('cart') as CartElement[]) ?? [];
+    const cartFromStorage = localStorage.getItem('cart') ?? '[]';
+    Cart.cart = JSON.parse(cartFromStorage) as CartElement[];
   }
 }
 
