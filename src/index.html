@@ -174,34 +174,44 @@
 
   <template id="cart-template">
     <div class="cart-page container">
-      <div class="order">
+      <div class="cart-page__item order">
         <div class="order__header">
-          <h2 class="cart-page__title">Products In Cart</h2>
+          <h2 class="order__title">Products In Cart</h2>
         </div>
         <ul class="order__list"></ul>
       </div>
-      <div class="summary">
-        <h2 class="cart-page__title">Summary</h2>
+      <div class="cart-page__item summary">
+        <h2 class="summary__title">Summary</h2>
         <div class="summary__products"><strong>Products:</strong> <span></span></div>
         <div class="summary__total"><strong>Total:</strong> <span></span></div>
-        <button class="button">BUY NOW</button>
+        <button class="button summary__button">BUY NOW</button>
       </div>
     </div>
   </template>
 
   <template id="order-item-template">
     <li class="order__item">
-      <span class="order__number"></span>
-      <img class="order__image" src="https://via.placeholder.com/130" alt="" width="130" height="130">
+      <b class="order__number"></b>
+      <img class="order__image" data-field="thumbnail" src="" alt="" width="120" height="120">
       <div class="order__text">
         <h3 class="order__product-title" data-field="title"></h3>
+        <p class="order__description" data-field="description"></p>
         <ul class="order__properties">
-          <li class="product__property"><strong>Description:</strong> <span data-field="description"></span></li>
-          <li class="product__property"><strong>Category:</strong> <span data-field="category"></span></li>
-          <li class="product__property"><strong>Brand:</strong> <span data-field="brand"></span></li>
-          <li class="product__property"><strong>Rating:</strong> <span data-field="rating"></span></li>
-          <li class="product__property"><strong>Discount Percentage:</strong> <span data-field="discount"></span></li>
+          <li class="order__property"><strong>Category:</strong> <span data-field="category"></span></li>
+          <li class="order__property"><strong>Brand:</strong> <span data-field="brand"></span></li>
+          <li class="order__property"><strong>Rating:</strong> <span data-field="rating"></span></li>
+          <li class="order__property"><strong>Discount:</strong> <span data-field="discountPercentage"></span></li>
         </ul>
+      </div>
+      <div class="order__digits">
+        <div class="order__stock"><strong>Stock:</strong> <span data-field="stock"></span></div>
+        <div class="order__buttons">
+          <button class="button order__button">-</button>
+          <b class="order__amount"></b>
+          <button class="button order__button">+</button>
+        </div>
+        <div><strong>Price/pcs:</strong> <span data-field="price"></span></div>
+        <div class="order__price"><strong>Total:</strong> <span></span></div>
       </div>
     </li>
   </template>
