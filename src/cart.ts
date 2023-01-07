@@ -43,6 +43,10 @@ class Cart {
     Cart.saveCart();
   }
 
+  public static isProductInCart(product: Product): boolean {
+    return Cart.findIndex(product) !== -1;
+  }
+
   public static getCartSum(): number {
     let sum = 0;
     Cart.cart.forEach((el) => {
