@@ -1,10 +1,5 @@
 import Product from './interfaces/product';
-
-type CartElement = {
-  id: number;
-  amount: number;
-  price: number;
-};
+import CartElement from './interfaces/cart-element';
 
 class Cart {
   private static cart: CartElement[];
@@ -72,6 +67,13 @@ class Cart {
   public static loadCart(): void {
     const cartFromStorage = localStorage.getItem('cart') ?? '[]';
     Cart.cart = JSON.parse(cartFromStorage) as CartElement[];
+  }
+
+  public static getProductTotalPrice(product: Product): number {
+    const idx: number = Cart.findIndex(product);
+    const totalPrice = Cart.cart[idx].amount * Cart.cart[idx].price;
+
+    return totalPrice;
   }
 }
 

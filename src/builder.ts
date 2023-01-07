@@ -13,9 +13,9 @@ class Builder {
     return block;
   }
 
-  static fillTextBlock(parentBlock: Element, selector: string, content: string): void {
+  static fillTextBlock(parentBlock: Element, selector: string, content: string, isPrice = false): void {
     const block = parentBlock.querySelector(selector) as Element;
-    block.textContent = content;
+    block.textContent = isPrice ? `$${content}` : content;
   }
 
   static fillDataFields(parentBlock: Element, product: Product): void {

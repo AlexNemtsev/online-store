@@ -4,10 +4,6 @@ import ProductPageView from './view/product-view';
 import CartPageView from './view/cart-view';
 import PageNotFoundView from './view/page-not-found-view';
 
-const cartPageDummy = (): void => {
-  console.log('cart page');
-};
-
 class Router {
   static setRoute = (e: Event): void => {
     const event: Event = e || window.event;
