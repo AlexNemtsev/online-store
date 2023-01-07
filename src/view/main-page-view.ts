@@ -62,6 +62,20 @@ class MainPageView {
     FiltersListener.appliedFilters = filters;
     FiltersListener.setListeners(queryHandler);
 
+    const productsForRendering: Product[] = MainPageView.runFilters(cards, filters);
+    if (productsForRendering.length)
+      GridView.draw(productsForRendering, linkHandler);
+    else MainPageView.noProductsFound();
+    ProductsBarView.updateProductsCount(productsForRendering.length);
+
+    const copyLinkBtn = document.querySelector('#copy-link-btn');
+    copyLinkBtn?.addEventListener('click', MainPageView.copyLinkHandler);
+
+    const resetFiltersBtn = document.querySelector('#reset-filters-btn');
+    resetFiltersBtn?.addEventListener('click', () => queryHandler({}));
+  }
+
+  private static runFilters(cards: HTMLElement, filters: FiltersObject): Product[] {
     let productsForRendering: Product[];
     productsForRendering = FiltersHandler.handleFilters(
       filters,
@@ -77,16 +91,31 @@ class MainPageView {
         filters,
         productsForRendering,
       );
+    if (Object.keys(filters).includes('grid')) {
+      const [gridOption]: (string | number)[] = [...filters.grid];
+      MainPageView.handleGridOption(cards, gridOption.toString());
+    }
 
-    if (productsForRendering.length)
-      GridView.draw(productsForRendering, linkHandler);
-    else MainPageView.noProductsFound();
+    return productsForRendering;
+  }
 
-    const copyLinkBtn = document.querySelector('#copy-link-btn');
-    copyLinkBtn?.addEventListener('click', MainPageView.copyLinkHandler);
+  private static handleGridOption(cards: HTMLElement, option: string): void {
+    const gridButtons: Element[] = [...document.querySelectorAll('.products__grid-button')];
 
-    const resetFiltersBtn = document.querySelector('#reset-filters-btn');
-    resetFiltersBtn?.addEventListener('click', () => queryHandler({}));
+    if (option === 'column') {
+      gridButtons[0].classList.remove('products__grid-button--active');
+      gridButtons[1].classList.add('products__grid-button--active');
+      if (!cards.classList.contains('cards--column')) {
+        cards.classList.add('cards--column');
+      }
+    }
+    if (option === 'matrix') {
+      gridButtons[1].classList.remove('products__grid-button--active');
+      gridButtons[0].classList.add('products__grid-button--active');
+      if (cards.classList.contains('cards--column')) {
+        cards.classList.remove('cards--column');
+      }
+    }
   }
 }
 
