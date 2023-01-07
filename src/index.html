@@ -170,6 +170,40 @@
       </div>
     </div>
   </template>
+
+  <template id="cart-template">
+    <div class="cart-page container">
+      <div class="order">
+        <div class="order__header">
+          <h2 class="cart-page__title">Products In Cart</h2>
+        </div>
+        <ul class="order__list"></ul>
+      </div>
+      <div class="summary">
+        <h2 class="cart-page__title">Summary</h2>
+        <div class="summary__products"><strong>Products:</strong> <span></span></div>
+        <div class="summary__total"><strong>Total:</strong> <span></span></div>
+        <button class="button">BUY NOW</button>
+      </div>
+    </div>
+  </template>
+
+  <template id="order-item-template">
+    <li class="order__item">
+      <span class="order__number"></span>
+      <img class="order__image" src="https://via.placeholder.com/130" alt="" width="130" height="130">
+      <div class="order__text">
+        <h3 class="order__product-title" data-field="title"></h3>
+        <ul class="order__properties">
+          <li class="product__property"><strong>Description:</strong> <span data-field="description"></span></li>
+          <li class="product__property"><strong>Category:</strong> <span data-field="category"></span></li>
+          <li class="product__property"><strong>Brand:</strong> <span data-field="brand"></span></li>
+          <li class="product__property"><strong>Rating:</strong> <span data-field="rating"></span></li>
+          <li class="product__property"><strong>Discount Percentage:</strong> <span data-field="discount"></span></li>
+        </ul>
+      </div>
+    </li>
+  </template>
 </body>
 
 </html>
