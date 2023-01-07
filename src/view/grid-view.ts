@@ -1,5 +1,6 @@
 import Product from '../interfaces/product';
 import Cart from '../cart';
+import HeaderView from './header-view';
 
 class GridView {
   private static fillCard(
@@ -53,6 +54,8 @@ class GridView {
         Cart.dropFromCart(item);
         addToCartBtn.textContent = 'Add to cart';
       }
+
+      HeaderView.updateTotalCartDisplay();
     });
 
     return card;
