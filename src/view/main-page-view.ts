@@ -77,6 +77,19 @@ class MainPageView {
         filters,
         productsForRendering,
       );
+    if (Object.keys(filters).includes('grid')) {
+      const [gridOption] = [...filters.grid];
+      if (gridOption === 'column') {
+        if (!cards.classList.contains('cards--column')) {
+          cards.classList.add('cards--column');
+        }
+      }
+      if (gridOption === 'matrix') {
+        if (cards.classList.contains('cards--column')) {
+          cards.classList.remove('cards--column');
+        }
+      }
+    } 
 
     if (productsForRendering.length)
       GridView.draw(productsForRendering, linkHandler);
