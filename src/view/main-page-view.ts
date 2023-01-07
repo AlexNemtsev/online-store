@@ -4,6 +4,7 @@ import Product from '../interfaces/product';
 import FiltersListener from '../filters-listener';
 import FiltersHandler from '../filters-handler';
 import SortHandler from '../sort-handler';
+import SearchHandler from '../search-handler';
 import FiltersObject from '../interfaces/filters';
 import ProductsBarView from './products-bar-view';
 import Builder from '../builder';
@@ -68,6 +69,11 @@ class MainPageView {
     );
     if (Object.keys(filters).includes('sort'))
       productsForRendering = SortHandler.handleSort(
+        filters,
+        productsForRendering,
+      );
+    if (Object.keys(filters).includes('search'))
+      productsForRendering = SearchHandler.handleSearch(
         filters,
         productsForRendering,
       );
