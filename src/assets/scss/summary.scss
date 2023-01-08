@@ -1,0 +1,27 @@
+.summary {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  text-align: center;
+  border: 3px solid $green;
+}
+
+.summary__title {
+  margin: 0 0 20px;
+  padding: 10px;
+  color: $white;
+  background-color: $green;
+}
+
+.summary__products,
+.summary__total {
+  margin-top: 15px;
+  font-size: 22px;
+}
+
+.summary__button {
+  margin: auto auto 20px;
+  padding: 15px 50px;
+  font-size: 20px;
+}

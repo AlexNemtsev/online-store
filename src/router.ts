@@ -1,13 +1,8 @@
 import FiltersObject from './interfaces/filters';
 import MainPageView from './view/main-page-view';
 import ProductPageView from './view/product-view';
+import CartPageView from './view/cart-view';
 import PageNotFoundView from './view/page-not-found-view';
-// import ProductPageView from './view/product-view';
-// import PageNotFoundView from './view/page-not-found-view';
-
-const cartPageDummy = (): void => {
-  console.log('cart page');
-};
 
 class Router {
   static setRoute = (e: Event): void => {
@@ -68,7 +63,7 @@ class Router {
           break;
 
         case 'cart':
-          cartPageDummy();
+          CartPageView.draw();
           break;
 
         default:

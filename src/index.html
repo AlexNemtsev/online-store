@@ -14,7 +14,7 @@
       <a href="/" id="logo-link">
         <img src="./assets/img/store_logo.svg" width="200" height="50" alt="Logo Store"></a>
       <p class="header__sum">
-        Cart total: <span class="header__sum-number">0</span>
+        Cart total: <span class="header__sum-number">$0</span>
       </p>
       <a href="/cart" id="cart-link"><img src="./assets/img/cart_logo.svg" width="50" height="50" alt="Cart"></a>
     </div>
@@ -26,8 +26,8 @@
     <div class="footer__inner container">
       <p>
         &copy;
-        <a href="https://github.com/">AlexNemtsev</a>,
         <a href="https://github.com/ansee66">ansee66</a>
+        <a href="https://github.com/">AlexNemtsev</a>,
       </p>
       <p>2022</p>
       <a href="https://rs.school/js/"><img src="./assets/img/rs_school_js.svg" width="100" height="38"
@@ -48,7 +48,7 @@
         <li class="card__item"><strong>Stock:</strong> <span></span></li>
       </ul>
       <div class="card__buttons">
-        <button class="button">Add to Cart</button>
+        <button class="button add-to-cart-btn">Add to Cart</button>
         <a class="button" href="">Details</a>
       </div>
     </div>
@@ -165,10 +165,55 @@
       </div>
       <input class="search" type="search" placeholder="Search product">
       <div class="products__grid-buttons">
-        <button class="products__grid-button products__grid-button--matrix products__grid-button--active">Matrix</button>
+        <button
+          class="products__grid-button products__grid-button--matrix products__grid-button--active">Matrix</button>
         <button class="products__grid-button products__grid-button--column">Column</button>
       </div>
     </div>
+  </template>
+
+  <template id="cart-template">
+    <div class="cart-page container">
+      <div class="cart-page__item order">
+        <div class="order__header">
+          <h2 class="order__title">Products In Cart</h2>
+        </div>
+        <ul class="order__list"></ul>
+      </div>
+      <div class="cart-page__item summary">
+        <h2 class="summary__title">Summary</h2>
+        <div class="summary__products"><strong>Products:</strong> <span></span></div>
+        <div class="summary__total"><strong>Total:</strong> <span></span></div>
+        <button class="button summary__button">BUY NOW</button>
+      </div>
+    </div>
+  </template>
+
+  <template id="order-item-template">
+    <li class="order__item">
+      <b class="order__number"></b>
+      <img class="order__image" data-field="thumbnail" src="" alt="" width="120" height="120">
+      <div class="order__text">
+        <h3 class="order__product-title" data-field="title"></h3>
+        <p class="order__description" data-field="description"></p>
+        <ul class="order__properties">
+          <li class="order__property"><strong>Category:</strong> <span data-field="category"></span></li>
+          <li class="order__property"><strong>Brand:</strong> <span data-field="brand"></span></li>
+          <li class="order__property"><strong>Rating:</strong> <span data-field="rating"></span></li>
+          <li class="order__property"><strong>Discount:</strong> <span data-field="discountPercentage"></span></li>
+        </ul>
+      </div>
+      <div class="order__digits">
+        <div class="order__stock"><strong>Stock:</strong> <span data-field="stock"></span></div>
+        <div class="order__buttons">
+          <button class="button order__button" data-amount="decrease" data-id="">-</button>
+          <b class="order__amount"></b>
+          <button class="button order__button" data-amount="increase" data-id="">+</button>
+        </div>
+        <div><strong>Price/pcs:</strong> <span data-field="price"></span></div>
+        <div class="order__price"><strong>Total:</strong> <span></span></div>
+      </div>
+    </li>
   </template>
 </body>
 

@@ -1,4 +1,6 @@
 import Product from '../interfaces/product';
+import Cart from '../cart';
+import HeaderView from './header-view';
 
 class GridView {
   private static fillCard(
@@ -23,7 +25,7 @@ class GridView {
       item.brand;
     (cardList.children[2].querySelector(
       'span',
-    ) as Element).textContent = `${item.price}`;
+    ) as Element).textContent = `$${item.price}`;
     (cardList.children[3].querySelector(
       'span',
     ) as Element).textContent = `${item.discountPercentage}`;
@@ -37,6 +39,24 @@ class GridView {
     const detailsLink = card.querySelector('a') as HTMLAnchorElement;
     detailsLink.href = `/product-details/${item.id}`;
     detailsLink.addEventListener('click', linkHandler);
+
+    const addToCartBtn = card.querySelector(
+      '.add-to-cart-btn',
+    ) as HTMLButtonElement;
+
+    if (Cart.isProductInCart(item)) addToCartBtn.textContent = 'Drop';
+
+    addToCartBtn.addEventListener('click', () => {
+      if (!Cart.isProductInCart(item)) {
+        Cart.addToCart(item);
+        addToCartBtn.textContent = 'Drop';
+      } else {
+        Cart.dropFromCart(item);
+        addToCartBtn.textContent = 'Add to cart';
+      }
+
+      HeaderView.updateTotalCartDisplay();
+    });
 
     return card;
   }
