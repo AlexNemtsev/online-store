@@ -2,13 +2,14 @@
   align-self: start;
   display: flex;
   flex-direction: column;
+  gap: 10px;
   min-height: 300px;
   text-align: center;
   border: 3px solid $green;
 }
 
 .summary__title {
-  margin: 0 0 20px;
+  margin: 0 0 10px;
   padding: 10px;
   color: $white;
   background-color: $green;
@@ -16,8 +17,37 @@
 
 .summary__products,
 .summary__total {
-  margin-top: 15px;
+  margin-top: 5px;
   font-size: 22px;
+}
+
+.summary__total {
+  &--strike {
+    text-decoration: line-through;
+  }
+}
+
+.summary__applied-codes {
+  margin: 0 30px;
+  padding: 5px 10px 0;
+  border: 3px solid $green;
+}
+
+.summary__applied-code {
+  margin: 5px 0;
+}
+
+.summary__input {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 16px;
+  border: 3px solid $green;
+}
+
+.summary__promo-info {
+  color: $green;
 }
 
 .summary__button {
