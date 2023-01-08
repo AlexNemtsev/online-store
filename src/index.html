@@ -26,10 +26,10 @@
     <div class="footer__inner container">
       <p>
         &copy;
-        <a href="https://github.com/ansee66">ansee66</a>
-        <a href="https://github.com/">AlexNemtsev</a>,
+        <a href="https://github.com/ansee66">ansee66</a>,
+        <a href="https://github.com/">AlexNemtsev</a>
       </p>
-      <p>2022</p>
+      <p>2022-2023</p>
       <a href="https://rs.school/js/"><img src="./assets/img/rs_school_js.svg" width="100" height="38"
           alt="Logo RS School"></a>
     </div>
@@ -184,6 +184,16 @@
         <h2 class="summary__title">Summary</h2>
         <div class="summary__products"><strong>Products:</strong> <span></span></div>
         <div class="summary__total"><strong>Total:</strong> <span></span></div>
+        <div class="summary__applied-codes hidden">
+          <strong>Applied Promocodes</strong>
+          <div class="summary__codes-list"></div>
+        </div>
+        <input class="summary__input" type="search" placeholder="Enter promo code">
+        <div class="summary__promo-info hidden">
+          <b></b>
+          <button class="button summary__add">ADD</button>
+        </div>
+        <small class="summary__promocodes">Promocodes for test: 'RSS', 'EPAM'</small>
         <button class="button summary__button">BUY NOW</button>
       </div>
     </div>
@@ -214,6 +224,13 @@
         <div class="order__price"><strong>Total:</strong> <span></span></div>
       </div>
     </li>
+  </template>
+
+  <template id="applied-code-template">
+    <div class="summary__applied-code">
+      <span></span>
+      <button class="button summary__drop">DROP</button>
+    </div>
   </template>
 </body>
 
