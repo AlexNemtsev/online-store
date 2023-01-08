@@ -27,7 +27,7 @@ const baseConfig = {
   },
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './docs'),
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -40,10 +40,11 @@ const baseConfig = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { 
-          from: './src/assets', to: path.resolve(__dirname, 'dist', 'assets'), 
+        {
+          from: './src/assets',
+          to: path.resolve(__dirname, 'docs', 'assets'),
           globOptions: {
-            ignore: ["**/scss/**"],
+            ignore: ['**/scss/**'],
           },
         },
       ],
