@@ -1,6 +1,6 @@
 import Product from '../interfaces/product';
 import Cart from '../cart';
-import HeaderView from './header-view';
+import addBtnHandler from '../add-btn-handler';
 
 class GridView {
   private static fillCard(
@@ -46,17 +46,7 @@ class GridView {
 
     if (Cart.isProductInCart(item)) addToCartBtn.textContent = 'Drop';
 
-    addToCartBtn.addEventListener('click', () => {
-      if (!Cart.isProductInCart(item)) {
-        Cart.addToCart(item);
-        addToCartBtn.textContent = 'Drop';
-      } else {
-        Cart.dropFromCart(item);
-        addToCartBtn.textContent = 'Add to cart';
-      }
-
-      HeaderView.updateTotalCartDisplay();
-    });
+    addBtnHandler(addToCartBtn, item);
 
     return card;
   }

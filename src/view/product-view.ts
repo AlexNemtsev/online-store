@@ -1,3 +1,5 @@
+import addBtnHandler from '../add-btn-handler';
+import Cart from '../cart';
 import Product from '../interfaces/product';
 import PageNotFoundView from './page-not-found-view';
 
@@ -107,6 +109,14 @@ class ProductPageView {
       }
 
       mainElement.append(productPage);
+
+      const addToCartBtn = mainElement.querySelector(
+        '.add-to-cart-btn',
+      ) as HTMLButtonElement;
+
+      if (Cart.isProductInCart(item)) addToCartBtn.textContent = 'Drop';
+
+      addBtnHandler(addToCartBtn, item);
     }
   }
 }
