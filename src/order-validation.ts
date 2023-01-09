@@ -4,7 +4,10 @@ const addOrderValidation = (): void => {
   const nameField = document.querySelector('#name') as HTMLInputElement;
   const nameError = document.querySelector('.name-error') as HTMLInputElement;
 
-  const validateName = () => {
+  const phoneField = document.querySelector('#phone') as HTMLInputElement;
+  const phoneError = document.querySelector('.phone-error') as HTMLInputElement;
+
+  const validateName = (): boolean => {
     const nameStrArr = nameField.value.split(' ');
 
     if (nameStrArr.length < 2 || !nameStrArr.every((name) => name.length > 3)) {
@@ -18,6 +21,23 @@ const addOrderValidation = (): void => {
 
   nameField.addEventListener('blur', () => {
     validateName();
+  });
+
+  const validatePhone = (): boolean => {
+    const regexTemplate = /^[+]{1,1}[0-9]{9,}$/;
+    const phone = phoneField.value;
+
+    if (!regexTemplate.test(phone)) {
+      phoneError.textContent = 'error';
+      return false;
+    }
+
+    phoneError.textContent = '';
+    return true;
+  };
+
+  phoneField.addEventListener('blur', () => {
+    validatePhone();
   });
 
   form.addEventListener('submit', (event) => {
