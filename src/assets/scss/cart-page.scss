@@ -8,3 +8,16 @@
 .cart-page__item {
   border: 3px solid $green;
 }
+
+.order-form {
+  border: 1px solid;
+  position: relative;
+  // top: 100px;
+  left: 40vw;
+  width: 270px;
+  /*   display: none; */
+}
+
+.active-form {
+  display: block;
+}

@@ -199,6 +199,15 @@
         <small class="summary__promocodes">Promocodes for test: 'RSS', 'EPAM'</small>
         <button class="button summary__button">BUY NOW</button>
       </div>
+
+      <form id="order-form" class="order-form">
+        <input type="text" name="name" id="name" placeholder="First Name and last name" required>
+        <span class="name-error"></span>
+        <input type="tel" name="phone" id="phone" placeholder="Phone number" required autofocus>
+        <input type="text" name="address" id="address" placeholder="Delivery address" required>
+        <input type="email" name="email" id="email" placeholder="Email" required autofocus>
+        <button type="submit" class="order-form__submit-btn">Confirm</button>
+      </form>
     </div>
   </template>
 
