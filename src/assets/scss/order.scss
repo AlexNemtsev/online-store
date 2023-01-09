@@ -1,3 +1,7 @@
+.order {
+  align-self: start;
+}
+
 .order__header {
   padding: 10px;
   color: $white;
@@ -60,6 +64,10 @@
 
 .order__property {
   margin-bottom: 5px;
+}
+
+.order__stock {
+  text-align: center;
 }
 
 .order__buttons {

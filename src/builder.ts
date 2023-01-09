@@ -1,9 +1,10 @@
 import Product from './interfaces/product';
 
 class Builder {
-  static createBlock(tag: string, classes: string[]): HTMLElement {
+  static createBlock(tag: string, classes: string[], text?: string): HTMLElement {
     const block = document.createElement(tag);
     block.classList.add(...classes);
+    if (text) block.textContent = text;
     return block;
   }
 
