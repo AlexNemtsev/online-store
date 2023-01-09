@@ -213,6 +213,7 @@
       </div>
 
       <form id="order-form" class="order-form">
+        <p>Personal details</p>
         <input type="text" name="name" id="name" placeholder="First Name and last name" required>
         <span class="name-error"></span>
         <input type="tel" name="phone" id="phone" placeholder="Phone number" required autofocus>
@@ -221,6 +222,9 @@
         <span class="address-error"></span>
         <input type="email" name="email" id="email" placeholder="Email" required autofocus>
         <span class="email-error"></span>
+        <p>Credit card details</p>
+        <input type="text" name="card-num" id="card-num" placeholder="Card number" required autofocus>
+        <span class="card-num-error"></span>
         <button type="submit" class="order-form__submit-btn">Confirm</button>
       </form>
     </div>

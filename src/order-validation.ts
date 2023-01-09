@@ -15,6 +15,11 @@ const addOrderValidation = (): void => {
   const emailField = document.querySelector('#email') as HTMLInputElement;
   const emailError = document.querySelector('.email-error') as HTMLInputElement;
 
+  const cardNumField = document.querySelector('#card-num') as HTMLInputElement;
+  const cardNumError = document.querySelector(
+    '.card-num-error',
+  ) as HTMLInputElement;
+
   const validateName = (): boolean => {
     const regexTemplate = /^([a-zA-Z]{3,}\s*){2,}$/;
 
@@ -80,6 +85,22 @@ const addOrderValidation = (): void => {
     validateEmail();
   });
 
+  const validateCardNum = (): boolean => {
+    const regexTemplate = /^[0-9]{16,16}$/;
+
+    if (!regexTemplate.test(cardNumField.value)) {
+      cardNumError.textContent = 'error';
+      return false;
+    }
+
+    cardNumError.textContent = '';
+    return true;
+  };
+
+  cardNumField.addEventListener('blur', () => {
+    validateCardNum();
+  });
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -88,6 +109,7 @@ const addOrderValidation = (): void => {
       validatePhone(),
       validateAddress(),
       validateEmail(),
+      validateCardNum(),
     ];
 
     if (validations.every((val) => val)) console.log('confirmed');
