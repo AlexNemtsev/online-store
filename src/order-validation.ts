@@ -12,6 +12,9 @@ const addOrderValidation = (): void => {
     '.address-error',
   ) as HTMLInputElement;
 
+  const emailField = document.querySelector('#email') as HTMLInputElement;
+  const emailError = document.querySelector('.email-error') as HTMLInputElement;
+
   const validateName = (): boolean => {
     const regexTemplate = /^([a-zA-Z]{3,}\s*){2,}$/;
 
@@ -61,10 +64,31 @@ const addOrderValidation = (): void => {
     validateAddress();
   });
 
+  const validateEmail = (): boolean => {
+    const regexTemplate = /^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/;
+
+    if (!regexTemplate.test(emailField.value)) {
+      emailError.textContent = 'error';
+      return false;
+    }
+
+    emailError.textContent = '';
+    return true;
+  };
+
+  emailField.addEventListener('blur', () => {
+    validateEmail();
+  });
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const validations = [validateName(), validatePhone()];
+    const validations = [
+      validateName(),
+      validatePhone(),
+      validateAddress(),
+      validateEmail(),
+    ];
 
     if (validations.every((val) => val)) console.log('confirmed');
   });
