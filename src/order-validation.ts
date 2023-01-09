@@ -20,6 +20,9 @@ const addOrderValidation = (): void => {
     '.card-num-error',
   ) as HTMLInputElement;
 
+  const cvvField = document.querySelector('#cvv') as HTMLInputElement;
+  const cvvError = document.querySelector('.cvv-error') as HTMLInputElement;
+
   const validateName = (): boolean => {
     const regexTemplate = /^([a-zA-Z]{3,}\s*){2,}$/;
 
@@ -101,6 +104,22 @@ const addOrderValidation = (): void => {
     validateCardNum();
   });
 
+  const validateCVV = (): boolean => {
+    const regexTemplate = /^[0-9]{3,3}$/;
+
+    if (!regexTemplate.test(cvvField.value)) {
+      cvvError.textContent = 'error';
+      return false;
+    }
+
+    cvvError.textContent = '';
+    return true;
+  };
+
+  cvvField.addEventListener('blur', () => {
+    validateCVV();
+  });
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -110,6 +129,7 @@ const addOrderValidation = (): void => {
       validateAddress(),
       validateEmail(),
       validateCardNum(),
+      validateCVV(),
     ];
 
     if (validations.every((val) => val)) console.log('confirmed');
