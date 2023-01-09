@@ -7,8 +7,13 @@ const addOrderValidation = (): void => {
   const phoneField = document.querySelector('#phone') as HTMLInputElement;
   const phoneError = document.querySelector('.phone-error') as HTMLInputElement;
 
+  const addressField = document.querySelector('#address') as HTMLInputElement;
+  const adressError = document.querySelector(
+    '.address-error',
+  ) as HTMLInputElement;
+
   const validateName = (): boolean => {
-    const regexTemplate = /^[A-z]{3,} [A-z]{3,}$/;
+    const regexTemplate = /^([a-zA-Z]{3,}\s*){2,}$/;
 
     if (!regexTemplate.test(nameField.value)) {
       nameError.textContent = 'error';
@@ -40,10 +45,26 @@ const addOrderValidation = (): void => {
     validatePhone();
   });
 
+  const validateAddress = (): boolean => {
+    const regexTemplate = /^([a-zA-Z]{5,}\s*){3,}$/;
+
+    if (!regexTemplate.test(addressField.value)) {
+      adressError.textContent = 'error';
+      return false;
+    }
+
+    adressError.textContent = '';
+    return true;
+  };
+
+  addressField.addEventListener('blur', () => {
+    validateAddress();
+  });
+
   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const validations = [validateName()];
+    const validations = [validateName(), validatePhone()];
 
     if (validations.every((val) => val)) console.log('confirmed');
   });
