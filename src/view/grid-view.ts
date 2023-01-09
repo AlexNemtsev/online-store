@@ -37,7 +37,7 @@ class GridView {
     ) as Element).textContent = `${item.stock}`;
 
     const detailsLink = card.querySelector('a') as HTMLAnchorElement;
-    detailsLink.href = `/product-details/${item.id}`;
+    detailsLink.href = `/product-${item.id}`;
     detailsLink.addEventListener('click', linkHandler);
 
     const addToCartBtn = card.querySelector(

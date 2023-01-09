@@ -50,26 +50,37 @@ class Router {
     const path: string = window.location.pathname;
     const filters = Router.transformUrlParams(window.location.search);
 
+    // if (path === '/') {
+    //   MainPageView.draw(filters, Router.setUrlParams, Router.setRoute);
+    // } else {
+    //   const page: string = path.split('/')[1];
+    //   switch (page) {
+    //     case 'product-details':
+    //       ProductPageView.fillPageTemplate(
+    //         MainPageView.allProducts[Number(path.split('/')[2]) - 1],
+    //       );
+    //       break;
+
+    //     case 'cart':
+    //       CartPageView.draw();
+    //       break;
+
+    //     default:
+    //       PageNotFoundView.draw();
+    //       break;
+    //   }
+    // }
+
     if (path === '/') {
       MainPageView.draw(filters, Router.setUrlParams, Router.setRoute);
+    } else if (path === '/cart') {
+      CartPageView.draw();
+    } else if (path.split('-')[0] === '/product') {
+      ProductPageView.fillPageTemplate(
+        MainPageView.allProducts[Number(path.split('-')[1]) - 1],
+      );
     } else {
-      const page: string = path.split('/')[1];
-      switch (page) {
-        case 'product-details':
-          // const productId = Number(path.split('/')[2]);
-          ProductPageView.fillPageTemplate(
-            MainPageView.allProducts[Number(path.split('/')[2]) - 1],
-          );
-          break;
-
-        case 'cart':
-          CartPageView.draw();
-          break;
-
-        default:
-          PageNotFoundView.draw();
-          break;
-      }
+      PageNotFoundView.draw();
     }
   }
 }
