@@ -61,6 +61,17 @@ class CartView {
       CartView.handlePromoTotalSum();
     }
 
+    const form = document.querySelector('.form-wrapper') as HTMLFormElement;
+    const buyNowBtn = mainElement.querySelector('.summary__button');
+    buyNowBtn?.addEventListener('click', () => {
+      form.classList.add('active-form');
+    });
+
+    form.addEventListener('click', (event) => {
+      if (event.target === event.currentTarget)
+        form.classList.remove('active-form');
+    });
+
     addOrderValidation();
   }
 
