@@ -27,7 +27,7 @@ const baseConfig = {
   },
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, './docs'),
+    path: path.resolve(__dirname, './dist'),
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -42,10 +42,14 @@ const baseConfig = {
       patterns: [
         {
           from: './src/assets',
-          to: path.resolve(__dirname, 'docs', 'assets'),
+          to: path.resolve(__dirname, 'dist', 'assets'),
           globOptions: {
             ignore: ['**/scss/**'],
           },
+        },
+        {
+          from: './src/redirects',
+          to: path.resolve(__dirname, 'dist'),
         },
       ],
     }),
