@@ -17,7 +17,7 @@ HeaderView.updateTotalCartDisplay();
 
 DataLoader.fetchProductsData()
   .then((products) => {
-    MainPageView.init(products.slice(1));
+    MainPageView.init(products);
     Router.handleLocation();
   })
   .catch((error) => console.log(error));
