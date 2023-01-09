@@ -1,3 +1,5 @@
+import Cart from './cart';
+
 const addOrderValidation = (): void => {
   const form = document.querySelector('#order-form') as HTMLFormElement;
 
@@ -132,7 +134,14 @@ const addOrderValidation = (): void => {
       validateCVV(),
     ];
 
-    if (validations.every((val) => val)) console.log('confirmed');
+    if (validations.every((val) => val)) {
+      const hiddenText = document.querySelector('.on-submit-text');
+      hiddenText?.classList.add('active-text');
+      setTimeout(() => {
+        Cart.dropCart();
+        document.location.href = '/';
+      }, 3000);
+    }
   });
 };
 

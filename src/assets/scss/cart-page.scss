@@ -38,6 +38,15 @@
   width: 75%;
 }
 
+.on-submit-text {
+  color: $green;
+  display: none;
+}
+
 .active-form {
   display: block;
+}
+
+.active-text {
+  display: inline;
 }
