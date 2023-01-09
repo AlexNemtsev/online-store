@@ -18,7 +18,7 @@ class DataLoader {
   }
 
   static fetchProductsData(): Promise<Product[]> {
-    return fetch('https://dummyjson.com/products?limit=100')
+    return fetch('https://dummyjson.com/products?limit=101')
       .then((res) => DataLoader.errorHandler(res))
       .then((res) => res.json())
       .then((data) => (data as ResponseData).products);
