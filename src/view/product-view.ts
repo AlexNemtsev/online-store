@@ -1,6 +1,7 @@
 import addBtnHandler from '../add-btn-handler';
 import Cart from '../cart';
 import Product from '../interfaces/product';
+import HeaderView from './header-view';
 import PageNotFoundView from './page-not-found-view';
 
 class ProductPageView {
@@ -116,7 +117,19 @@ class ProductPageView {
 
       if (Cart.isProductInCart(item)) addToCartBtn.textContent = 'Drop';
 
-      addBtnHandler(addToCartBtn, item);
+      addToCartBtn.addEventListener('click', (e) => {
+        const thisBtn = e.target as HTMLElement;
+
+        if (!Cart.isProductInCart(item)) {
+          Cart.addToCart(item);
+          thisBtn.textContent = 'Drop';
+        } else {
+          Cart.dropFromCart(item);
+          thisBtn.textContent = 'Add to cart';
+        }
+
+        HeaderView.updateTotalCartDisplay();
+      });
     }
   }
 }
