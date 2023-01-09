@@ -56,7 +56,7 @@ class Router {
       CartPageView.draw();
     } else if (path.split('-')[0] === '/product') {
       ProductPageView.fillPageTemplate(
-        MainPageView.allProducts[Number(path.split('-')[1]) - 1],
+        MainPageView.allProducts[Number(path.split('-')[1]) - 2],
       );
     } else {
       PageNotFoundView.draw();
