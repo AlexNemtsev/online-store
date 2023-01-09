@@ -46,7 +46,7 @@ class ProductPageView {
     );
 
     if (item.images.length > 1) {
-      for (let i = 1; i < (item.id === 1 ? 4: item.images.length); i += 1) {
+      for (let i = 1; i < item.images.length; i += 1) {
         const newImage = productImagesList.children[0].cloneNode(
           true,
         ) as Element;
