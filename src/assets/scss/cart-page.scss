@@ -8,3 +8,45 @@
 .cart-page__item {
   border: 3px solid $green;
 }
+
+.error-msg {
+  color: red;
+}
+
+.form-wrapper {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+}
+
+.order-form {
+  border: 1px solid;
+  position: relative;
+  top: 100px;
+  left: 40vw;
+  box-sizing: border-box;
+  width: 300px;
+  padding: 10px;
+  background-color: $dark-gray;
+}
+
+.order-form input {
+  width: 75%;
+}
+
+.on-submit-text {
+  color: $green;
+  display: none;
+}
+
+.active-form {
+  display: block;
+}
+
+.active-text {
+  display: inline;
+}

@@ -19,7 +19,8 @@ class Cart {
   }
 
   public static dropFromCart(product: Product): void {
-    if (Cart.findIndex(product) !== -1) Cart.cart.splice(Cart.findIndex(product), 1);
+    if (Cart.findIndex(product) !== -1)
+      Cart.cart.splice(Cart.findIndex(product), 1);
 
     Cart.saveCart();
   }
@@ -74,6 +75,11 @@ class Cart {
     const totalPrice = Cart.cart[idx].amount * Cart.cart[idx].price;
 
     return totalPrice;
+  }
+
+  public static dropCart(): void {
+    Cart.cart = [];
+    Cart.saveCart();
   }
 }
 

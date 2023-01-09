@@ -86,7 +86,7 @@
           <p class="product__price">$<span>0</span></p>
           <div class="product__buttons">
             <button class="button product__button add-to-cart-btn">Add to Cart</button>
-            <button class="button product__button">Buy now</button>
+            <button class="button product__button buy-now-btn">Buy now</button>
           </div>
         </div>
       </section>
@@ -210,6 +210,29 @@
         </div>
         <small class="summary__promocodes">Promocodes for test: 'RSS', 'EPAM'</small>
         <button class="button summary__button">BUY NOW</button>
+      </div>
+
+      <div class="form-wrapper">
+        <form id="order-form" class="order-form">
+          <p>Personal details</p>
+          <input type="text" name="name" id="name" placeholder="Name" required>
+          <span class="name-error error-msg"></span>
+          <input type="tel" name="phone" id="phone" placeholder="Phone number" required>
+          <span class="phone-error error-msg"></span>
+          <input type="text" name="address" id="address" placeholder="Delivery address" required>
+          <span class="address-error error-msg"></span>
+          <input type="email" name="email" id="email" placeholder="Email" required>
+          <span class="email-error error-msg"></span>
+          <p>Credit card details</p>
+          <input type="text" name="card-num" id="card-num" placeholder="Card number" required>
+          <span class="card-num-error error-msg"></span>
+          <input type="text" name="exp-date" id="exp-date" placeholder="Exp. date" required>
+          <span class="exp-date-error error-msg"></span>
+          <input type="text" name="cvv" id="cvv" placeholder="CVV" required>
+          <span class="cvv-error error-msg"></span>
+          <button type="button submit" class="order-form__submit-btn">Confirm</button>
+          <span class="on-submit-text">Success</span>
+        </form>
       </div>
     </div>
   </template>
