@@ -8,9 +8,9 @@ const addOrderValidation = (): void => {
   const phoneError = document.querySelector('.phone-error') as HTMLInputElement;
 
   const validateName = (): boolean => {
-    const nameStrArr = nameField.value.split(' ');
+    const regexTemplate = /^[A-z]{3,} [A-z]{3,}$/;
 
-    if (nameStrArr.length < 2 || !nameStrArr.every((name) => name.length > 3)) {
+    if (!regexTemplate.test(nameField.value)) {
       nameError.textContent = 'error';
       return false;
     }
