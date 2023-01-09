@@ -180,6 +180,18 @@
       <div class="cart-page__item order">
         <div class="order__header">
           <h2 class="order__title">Products In Cart</h2>
+          <div class="pagination">
+            <div class="pagination__limit">
+              <strong>Limit: </strong>
+              <input class="pagination__limit-input" type="number" min="1" max="5">
+            </div>
+            <div class="pagination__pages">
+              <strong>Page: </strong>
+              <button class="button pagination__button pagination__button--prev"> &lt; </button>
+              <span class="pagination_number">1</span>
+              <button class="button pagination__button pagination__button--next"> &gt; </button>
+            </div>
+          </div>
         </div>
         <ul class="order__list"></ul>
       </div>
