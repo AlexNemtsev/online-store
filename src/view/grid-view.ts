@@ -46,13 +46,15 @@ class GridView {
 
     if (Cart.isProductInCart(item)) addToCartBtn.textContent = 'Drop';
 
-    addToCartBtn.addEventListener('click', () => {
+    addToCartBtn.addEventListener('click', (e) => {
+      const thisBtn = e.target as HTMLElement;
+
       if (!Cart.isProductInCart(item)) {
         Cart.addToCart(item);
-        addToCartBtn.textContent = 'Drop';
+        thisBtn.textContent = 'Drop';
       } else {
         Cart.dropFromCart(item);
-        addToCartBtn.textContent = 'Add to cart';
+        thisBtn.textContent = 'Add to cart';
       }
 
       HeaderView.updateTotalCartDisplay();
