@@ -114,9 +114,22 @@ class ProductPageView {
         '.add-to-cart-btn',
       ) as HTMLButtonElement;
 
+      const buyNowBtn = mainElement.querySelector(
+        '.buy-now-btn',
+      ) as HTMLButtonElement;
+
       if (Cart.isProductInCart(item)) addToCartBtn.textContent = 'Drop';
 
       addBtnHandler(addToCartBtn, item);
+
+      buyNowBtn.addEventListener('click', () => {
+        if (!Cart.isProductInCart(item)) {
+          Cart.addToCart(item);
+        }
+        window.location.href = '/cart';
+        const form = document.querySelector('.form-wrapper') as HTMLFormElement;
+        form.classList.add('active-form');
+      });
     }
   }
 }
