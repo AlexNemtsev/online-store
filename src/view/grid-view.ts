@@ -1,6 +1,5 @@
 import Product from '../interfaces/product';
 import Cart from '../cart';
-import HeaderView from './header-view';
 import addBtnHandler from '../add-btn-handler';
 
 class GridView {
