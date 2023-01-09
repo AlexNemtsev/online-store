@@ -19,7 +19,7 @@ class Cart {
   }
 
   public static dropFromCart(product: Product): void {
-    Cart.cart.splice(Cart.findIndex(product), 1);
+    if (Cart.findIndex(product) !== -1) Cart.cart.splice(Cart.findIndex(product), 1);
 
     Cart.saveCart();
   }

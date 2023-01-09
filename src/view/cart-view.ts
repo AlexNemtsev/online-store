@@ -26,6 +26,12 @@ class CartView {
     }
   };
 
+  private static pageLimit = 3;
+
+  private static currentPage = 1;
+
+  private static currentPageBlock: HTMLElement;
+
   static draw(): void {
     const cartPage: HTMLElement = Builder.createClone('cart-template');
     const storageCart: string | null = localStorage.getItem('cart');
@@ -33,10 +39,14 @@ class CartView {
       if (storageCart === '[]') {
         cartPage.children[0].innerHTML = `<h1>Cart is Empty</h1>`;
       } else {
-        CartView.fillProductsInfo(cartPage, storageCart);
+        const cartProducts = JSON.parse(storageCart) as CartElement[];
+        const orderList = CartView.fillProductsInfo(cartPage, cartProducts);
+        CartView.setAmountButtonHandler(orderList);
         CartView.fillSummary(cartPage);
         CartView.setPromoInputHandler(cartPage);
         CartView.setPromoButtonsHandler(cartPage);
+        CartView.setPaginationBtnsHandler(cartPage, cartProducts);
+        CartView.setPaginationInputHandler(cartPage, cartProducts);
       }
     }
 
@@ -53,40 +63,45 @@ class CartView {
 
   private static fillProductsInfo(
     cartPage: HTMLElement,
-    cartInfo: string,
-  ): void {
-    const orderList = cartPage.querySelector('.order__list') as HTMLElement;
-    const cartProducts = JSON.parse(cartInfo) as CartElement[];
+    cartProducts: CartElement[],
+  ): HTMLElement {
+    let orderList: HTMLElement | null = cartPage.querySelector('.order__list');
+    if (orderList === null) {
+      orderList = document.querySelector('.order__list') as HTMLElement;
+    }
+    orderList.innerHTML = '';
     cartProducts.forEach((item, index) => {
-      const orderItem = Builder.createClone('order-item-template');
-      const orderedProduct = MainPageView.allProducts[item.id - 1];
-      Builder.fillTextBlock(
-        orderItem,
-        '.order__number',
-        (index + 1).toString(),
-      );
-      Builder.fillDataFields(orderItem, orderedProduct);
-      Builder.fillTextBlock(
-        orderItem,
-        '.order__amount',
-        item.amount.toString(),
-      );
-      Builder.fillTextBlock(
-        orderItem,
-        '.order__price span',
-        Cart.getProductTotalPrice(orderedProduct).toString(),
-        true,
-      );
+      if ((index >= CartView.pageLimit * (CartView.currentPage - 1)) && (index < CartView.pageLimit * CartView.currentPage)) {
+        const orderItem = Builder.createClone('order-item-template');
+        const orderedProduct = MainPageView.allProducts[item.id - 1];
+        Builder.fillTextBlock(
+          orderItem,
+          '.order__number',
+          (index + 1).toString(),
+        );
+        Builder.fillDataFields(orderItem, orderedProduct);
+        Builder.fillTextBlock(
+          orderItem,
+          '.order__amount',
+          item.amount.toString(),
+        );
+        Builder.fillTextBlock(
+          orderItem,
+          '.order__price span',
+          Cart.getProductTotalPrice(orderedProduct).toString(),
+          true,
+        );
 
-      const orderButtons = [
-        ...orderItem.querySelectorAll('.order__button'),
-      ] as HTMLElement[];
-      orderButtons.forEach((button: HTMLElement) => {
-        button.dataset.id = orderedProduct.id.toString();
-      });
-      orderList.append(orderItem);
+        const orderButtons = [
+          ...orderItem.querySelectorAll('.order__button'),
+        ] as HTMLElement[];
+        orderButtons.forEach((button: HTMLElement) => {
+          button.dataset.id = orderedProduct.id.toString();
+        });
+        (orderList as HTMLElement).append(orderItem);
+      }
     });
-    CartView.setAmountButtonHandler(orderList);
+    return orderList;
   }
 
   private static fillSummary(parentsBlock: HTMLElement): void {
@@ -115,6 +130,9 @@ class CartView {
         if (event.target.dataset.amount === 'decrease') {
           if (previousAmount === 1) {
             Cart.dropFromCart(orderedProduct);
+            if (orderList.children.length === 1 && CartView.currentPage > 1) {
+              CartView.currentPage -= 1;
+            }
             CartView.draw();
             previousAmount = 0;
           } else {
@@ -269,6 +287,48 @@ class CartView {
       return newSum;
     }, 0)
     return  (Cart.getCartSum() * (1 - promoPrecent * 0.01)).toFixed(0);
+  }
+
+  private static setPaginationBtnsHandler(
+    cartPage: HTMLElement,
+    cartProducts: CartElement[],
+  ): void {
+    const prevBtn = cartPage.querySelector('.pagination__button--prev') as HTMLElement;
+    const nextBtn = cartPage.querySelector('.pagination__button--next') as HTMLElement;
+    CartView.currentPageBlock = cartPage.querySelector('.pagination_number') as HTMLElement;
+    CartView.currentPageBlock.textContent = CartView.currentPage.toString();
+
+    prevBtn.addEventListener('click', () => {
+      if (CartView.currentPage > 1) {
+        CartView.currentPage -= 1;
+        CartView.currentPageBlock.textContent = CartView.currentPage.toString();
+        CartView.fillProductsInfo(cartPage, cartProducts);
+      }
+    })
+
+    nextBtn.addEventListener('click', () => {
+      const lastPage = Math.ceil(cartProducts.length / CartView.pageLimit);
+      if (CartView.currentPage < lastPage) {
+        CartView.currentPage += 1;
+        CartView.currentPageBlock.textContent = CartView.currentPage.toString();
+        CartView.fillProductsInfo(cartPage, cartProducts);
+      }
+    })
+  }
+
+  private static setPaginationInputHandler(
+    cartPage: HTMLElement,
+    cartProducts: CartElement[],
+  ) {
+    const limitInput = cartPage.querySelector('.pagination__limit-input') as HTMLInputElement;
+    limitInput.value = CartView.pageLimit.toString();
+    limitInput.addEventListener('input', () => {
+      const enteredValue = Number(limitInput.value);
+      if (enteredValue > 0 && enteredValue <= 5) {
+        CartView.pageLimit = enteredValue;
+        CartView.fillProductsInfo(cartPage, cartProducts);
+      }
+    })
   }
 }
 
