@@ -108,6 +108,8 @@ class ProductPageView {
         mainElement.children[0].remove();
       }
 
+      mainElement.append(productPage);
+
       const addToCartBtn = mainElement.querySelector(
         '.add-to-cart-btn',
       ) as HTMLButtonElement;
@@ -115,8 +117,6 @@ class ProductPageView {
       if (Cart.isProductInCart(item)) addToCartBtn.textContent = 'Drop';
 
       addBtnHandler(addToCartBtn, item);
-
-      mainElement.append(productPage);
     }
   }
 }
