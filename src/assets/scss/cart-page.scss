@@ -11,10 +11,14 @@
 
 .order-form {
   border: 1px solid;
-  position: relative;
+  position: absolute;
+  z-index: 10;
   // top: 100px;
   left: 40vw;
-  width: 270px;
+  box-sizing: border-box;
+  width: 300px;
+  padding: 10px;
+  background-color: $dark-gray;
   /*   display: none; */
 }
 
