@@ -40,11 +40,16 @@ const baseConfig = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { 
-          from: './src/assets', to: path.resolve(__dirname, 'dist', 'assets'), 
+        {
+          from: './src/assets',
+          to: path.resolve(__dirname, 'dist', 'assets'),
           globOptions: {
-            ignore: ["**/scss/**"],
+            ignore: ['**/scss/**'],
           },
+        },
+        {
+          from: './src/redirects',
+          to: path.resolve(__dirname, 'dist'),
         },
       ],
     }),
