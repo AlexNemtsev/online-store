@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "ES6",
+    "esModuleInterop": true,
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
@@ -9,11 +10,6 @@
     "target": "ES6",
     "strict": true
   },
-  "include": [
-    "./src"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
+  "include": ["./src"],
+  "exclude": ["node_modules", "**/*.spec.ts", "./tests"]
 }

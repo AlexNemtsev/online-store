@@ -5,6 +5,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const prodCfg = require('./webpack.prod.config');
+const devCfg = require('./webpack.dev.config');
+
 const baseConfig = {
   entry: path.resolve(__dirname, './src/index.ts'),
   devtool: 'inline-source-map',
@@ -58,9 +61,7 @@ const baseConfig = {
 
 module.exports = ({ mode }) => {
   const isProductionMode = mode === 'prod';
-  const envConfig = isProductionMode
-    ? require('./webpack.prod.config')
-    : require('./webpack.dev.config');
+  const envConfig = isProductionMode ? prodCfg : devCfg;
 
   return merge(baseConfig, envConfig);
 };
