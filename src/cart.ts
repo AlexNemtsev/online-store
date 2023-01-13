@@ -44,21 +44,11 @@ class Cart {
   }
 
   public static getCartSum(): number {
-    let sum = 0;
-    Cart._cart.forEach((el) => {
-      sum += el.amount * el.price;
-    });
-
-    return sum;
+    return Cart._cart.reduce((acc, el) => el.amount * el.price + acc, 0);
   }
 
   public static getTotalAmount(): number {
-    let amount = 0;
-    Cart._cart.forEach((el) => {
-      amount += el.amount;
-    });
-
-    return amount;
+    return Cart._cart.reduce((acc, el) => el.amount + acc, 0);
   }
 
   private static saveCart(): void {

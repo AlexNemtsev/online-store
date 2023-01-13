@@ -1,5 +1,5 @@
 import CartElement from '../../src/interfaces/cart-element';
-import items from './products';
+import { items } from './products';
 
 const cartElements: CartElement[] = items.map((item) => {
   return {
