@@ -2,7 +2,7 @@ import Product from './interfaces/product';
 import CartElement from './interfaces/cart-element';
 
 class Cart {
-  private static _cart: CartElement[];
+  private static _cart: CartElement[] = [];
 
   private static findIndex(product: Product): number {
     return Cart._cart.findIndex((el) => el.id === product.id);
