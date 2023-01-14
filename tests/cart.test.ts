@@ -98,3 +98,12 @@ test('Cart.getTotalAmount should return total amount of items in cart', () => {
 
   expect(actual).toBe(expected);
 });
+
+test('Cart.getProductTotalPrice shoult return multiply of price and amount of specified item', () => {
+  const actual = Cart.getProductTotalPrice(items[idxOfItem]);
+
+  const expected =
+    cartElements[idxOfItem].amount * cartElements[idxOfItem].price;
+
+  expect(actual).toBe(expected);
+});
