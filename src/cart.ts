@@ -2,14 +2,14 @@ import Product from './interfaces/product';
 import CartElement from './interfaces/cart-element';
 
 class Cart {
-  private static cart: CartElement[];
+  private static _cart: CartElement[] = [];
 
   private static findIndex(product: Product): number {
-    return Cart.cart.findIndex((el) => el.id === product.id);
+    return Cart._cart.findIndex((el) => el.id === product.id);
   }
 
   public static addToCart(product: Product): void {
-    Cart.cart.push({
+    Cart._cart.push({
       id: product.id,
       amount: 1,
       price: product.price,
@@ -20,21 +20,21 @@ class Cart {
 
   public static dropFromCart(product: Product): void {
     if (Cart.findIndex(product) !== -1)
-      Cart.cart.splice(Cart.findIndex(product), 1);
+      Cart._cart.splice(Cart.findIndex(product), 1);
 
     Cart.saveCart();
   }
 
   public static increaseAmount(product: Product): void {
     const idx: number = Cart.findIndex(product);
-    Cart.cart[idx].amount += 1;
+    Cart._cart[idx].amount += 1;
 
     Cart.saveCart();
   }
 
   public static decreaseAmount(product: Product): void {
     const idx: number = Cart.findIndex(product);
-    Cart.cart[idx].amount -= 1;
+    Cart._cart[idx].amount -= 1;
 
     Cart.saveCart();
   }
@@ -44,42 +44,36 @@ class Cart {
   }
 
   public static getCartSum(): number {
-    let sum = 0;
-    Cart.cart.forEach((el) => {
-      sum += el.amount * el.price;
-    });
-
-    return sum;
+    return Cart._cart.reduce((acc, el) => el.amount * el.price + acc, 0);
   }
 
   public static getTotalAmount(): number {
-    let amount = 0;
-    Cart.cart.forEach((el) => {
-      amount += el.amount;
-    });
-
-    return amount;
+    return Cart._cart.reduce((acc, el) => el.amount + acc, 0);
   }
 
   private static saveCart(): void {
-    localStorage.setItem('cart', JSON.stringify(Cart.cart));
+    localStorage.setItem('cart', JSON.stringify(Cart._cart));
   }
 
   public static loadCart(): void {
     const cartFromStorage = localStorage.getItem('cart') ?? '[]';
-    Cart.cart = JSON.parse(cartFromStorage) as CartElement[];
+    Cart._cart = JSON.parse(cartFromStorage) as CartElement[];
   }
 
   public static getProductTotalPrice(product: Product): number {
     const idx: number = Cart.findIndex(product);
-    const totalPrice = Cart.cart[idx].amount * Cart.cart[idx].price;
+    const totalPrice = Cart._cart[idx].amount * Cart._cart[idx].price;
 
     return totalPrice;
   }
 
   public static dropCart(): void {
-    Cart.cart = [];
+    Cart._cart = [];
     Cart.saveCart();
+  }
+
+  public static get cart() {
+    return Cart._cart;
   }
 }
 
