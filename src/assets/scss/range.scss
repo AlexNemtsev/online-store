@@ -1,0 +1,56 @@
+.range {
+  padding: 10px;
+}
+
+.range__numbers {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.range__arrow {
+  text-align: center;
+}
+
+.range__to {
+  text-align: right;
+}
+
+.range__inputs {
+  position: relative;
+  margin-top: 10px;
+}
+
+.range__bar {
+  height: 7px;
+  background-color: $green;
+  border-radius: 5px;
+}
+
+.range__input {
+  position: absolute;
+  width: 100%;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  background-color: transparent;
+  appearance: none;
+  outline: none;
+  pointer-events: none;
+
+  &::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 7px;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 18px;
+    width: 18px;
+    margin-top: -5px;
+    background-color: $white;
+    border: 3px solid $green-hover;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+}

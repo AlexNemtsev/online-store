@@ -1,0 +1,99 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: min-content;
+  gap: 30px;
+
+  &--column {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 253px;
+  box-shadow: 0 0 15px 3px rgb(0 0 0 / 35%);
+  overflow: hidden;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.cards--column .card {
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: 
+    "image image title title title"
+    "image image info info info"
+    "image image btns btns btns";
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+.card__title {
+  margin: 0;
+  padding: 5px;
+  font-size: 18px;
+  text-align: center;
+  color: $white;
+  background-color: $green;
+}
+
+.cards--column .card__title {
+  grid-area: title;
+}
+
+.card__list {
+  display: none;
+  margin: 0;
+  padding: 10px;
+  list-style: none;
+  color: $white;
+}
+
+.card:hover .card__list {
+  display: block;
+}
+
+.cards--column .card__list {
+  grid-area: info;
+  display: block;
+  color: $black;
+}
+
+.card__image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.cards--column .card__image {
+  grid-area: image;
+  position: relative;
+  max-height: 255px;
+}
+
+.card__buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: auto;
+  padding: 5px 5px 10px;
+}
+
+.cards--column .card__buttons {
+  grid-area: btns;
+}
