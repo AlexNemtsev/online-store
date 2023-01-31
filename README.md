@@ -1,1 +1,2 @@
 # online-store
+**Online-store** - задание по созданию функционала интернет магазина, выполнено совместно с [ansee66](https://github.com/ansee66) в рамках курса [RS School Stage#2](https://rs.school/js/)
